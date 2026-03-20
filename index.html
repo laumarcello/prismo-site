@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prismo — Material de producto a escala</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+<script src="https://www.google.com/recaptcha/api.js?render=6LcugZEsAAAAAFCsPhhQaEh75FWEXjSUtKVdmYmF"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -753,6 +754,141 @@
     margin-bottom: 8px;
   }
 
+  /* Hide reCAPTCHA badge */
+  .grecaptcha-badge { visibility: hidden; }
+
+  /* --- Contact form dark — full width --- */
+  .contacto-wrapper {
+    background: var(--off-black);
+    position: relative;
+  }
+
+  .contacto-spectral-top {
+    height: 3px;
+    background: linear-gradient(135deg, #E4A0B4 0%, #E8C4A0 18%, #D4D8A0 34%, #A0D4B8 50%, #A0BCD8 66%, #A8A0D8 82%, #CCA0D4 100%);
+  }
+
+  .contacto {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+  }
+
+  .contacto-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .contacto-title {
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--off-white);
+    margin-bottom: 6px;
+  }
+
+  .contacto-sub {
+    font-size: 14px;
+    color: var(--stone);
+    margin-bottom: 28px;
+  }
+
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .contacto-grid .full { grid-column: 1 / -1; }
+
+  .contacto-grid label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--stone);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .contacto-grid input,
+  .contacto-grid textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--off-white);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .contacto-grid input::placeholder,
+  .contacto-grid textarea::placeholder {
+    color: rgba(255,255,255,0.25);
+  }
+
+  .contacto-grid input:focus,
+  .contacto-grid textarea:focus {
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  .contacto-grid textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .contacto-submit {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+  }
+
+  .contacto-submit button {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--off-black);
+    background: var(--off-white);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .contacto-submit button:hover { opacity: 0.85; }
+
+  .contacto-success {
+    display: none;
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  .contacto-success .cs-check {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .contacto-success .cs-msg {
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--off-white);
+    margin-bottom: 6px;
+  }
+
+  .contacto-success .cs-sub {
+    font-size: 14px;
+    color: var(--stone);
+  }
+
+  @media (max-width: 600px) {
+    .contacto-grid { grid-template-columns: 1fr; }
+    .contacto-box { padding: 28px 20px; }
+  }
+
   /* --- CTA final --- */
   .cta-final {
     padding-top: 60px;
@@ -1149,18 +1285,83 @@
   </div>
 </section>
 
-<!-- Footer -->
-<footer>
-  <div class="footer-logo">Prismo</div>
-  <div class="footer-by">by Contentalia</div>
-  <div class="footer-spectral"></div>
-</footer>
+<!-- Formulario de contacto — full width dark -->
+<div class="contacto-wrapper">
+  <div class="contacto-spectral-top"></div>
+  <section class="contacto">
+    <div class="contacto-inner">
+      <div class="contacto-title">Escribinos</div>
+      <div class="contacto-sub">Te respondemos en menos de 24 hs.</div>
+      <form id="contactForm" class="contacto-grid">
+        <div>
+          <label>Nombre</label>
+          <input type="text" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div>
+          <label>Empresa</label>
+          <input type="text" name="empresa" placeholder="Tu empresa">
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" name="email" placeholder="tu@email.com" required>
+        </div>
+        <div>
+          <label>¿Qué necesitás?</label>
+          <input type="text" name="necesidad" placeholder="Contanos en una línea">
+        </div>
+        <div class="contacto-submit">
+          <button type="submit">Enviar</button>
+        </div>
+        <div class="full" style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:8px;">Protegido por reCAPTCHA. <a href="https://policies.google.com/privacy" style="color:rgba(255,255,255,0.35);">Privacidad</a> y <a href="https://policies.google.com/terms" style="color:rgba(255,255,255,0.35);">Términos</a>.</div>
+      </form>
+      <div class="contacto-success" id="contactSuccess">
+        <div class="cs-check">✓</div>
+        <div class="cs-msg">Recibido. Te contactamos pronto.</div>
+        <div class="cs-sub">Revisá tu mail en las próximas 24 hs.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
 
 <script>
 // Nav scroll effect
 const navWrapper = document.querySelector('.nav-wrapper');
 window.addEventListener('scroll', () => {
   navWrapper.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Contact form → reCAPTCHA v3 + Make webhook
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = this;
+  const data = new FormData(form);
+  const btn = form.querySelector('button');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  try {
+    const token = await grecaptcha.execute('6LcugZEsAAAAAFCsPhhQaEh75FWEXjSUtKVdmYmF', { action: 'contact' });
+
+    await fetch('https://hook.us2.make.com/tbvs3vkgxgxqjf8mgst7e4jibua3fwy8', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: data.get('nombre'),
+        empresa: data.get('empresa'),
+        email: data.get('email'),
+        necesidad: data.get('necesidad'),
+        origen: 'prismo.com.ar - formulario contacto',
+        recaptchaToken: token
+      })
+    });
+  } catch(err) {}
+
+  // Show success — hide title and form
+  form.style.display = 'none';
+  document.querySelector('.contacto-title').style.display = 'none';
+  document.querySelector('.contacto-sub').style.display = 'none';
+  document.getElementById('contactSuccess').style.display = 'block';
 });
 
 // Card social rotation
