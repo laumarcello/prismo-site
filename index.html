@@ -674,12 +674,34 @@
   .ph-story .pst-sub { font-size: 7px; color: var(--stone); margin-bottom: 8px; }
   .ph-story .pst-cta { font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--off-black); background: var(--off-white); padding: 4px 10px; border-radius: 3px; display: inline-block; }
 
+  .que-redes-visual {
+    position: relative;
+    min-height: 320px;
+    justify-content: center;
+  }
+
+  .que-redes-visual .ph-card-social {
+    position: relative;
+    z-index: 1;
+    margin-right: 40px;
+  }
+
+  .que-redes-visual .ph-story {
+    position: absolute;
+    right: calc(50% - 180px);
+    bottom: -40px;
+    z-index: 2;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
   @media (max-width: 700px) {
     .que-item { grid-template-columns: 1fr; }
     .que-item:nth-child(even) { direction: ltr; }
     .que-item-visual { order: -1; }
     .ph-ficha { width: 100%; max-width: 380px; }
     .ph-price-list { width: 100%; max-width: 300px; }
+    .que-redes-visual .ph-card-social { width: 180px; height: 180px; }
+    .que-redes-visual .ph-story { width: 120px; height: 213px; right: 10%; bottom: -10px; }
   }
 
   /* --- Para quien --- */
@@ -977,7 +999,7 @@
         <h4>Imágenes para redes</h4>
         <p>De cada producto, en todos los formatos. Story, feed, cuadrado. Listas para publicar.</p>
       </div>
-      <div class="que-item-visual" style="gap: 16px;">
+      <div class="que-item-visual que-redes-visual">
         <div class="ph-card-social" id="phCardSocial">
           <div class="pcs-spectral"></div>
           <div class="pcs-image">
