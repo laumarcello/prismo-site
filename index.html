@@ -28,6 +28,19 @@
   }
 
   /* --- Nav --- */
+  .nav-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--off-white);
+    transition: all 0.4s ease;
+  }
+
+  .nav-wrapper.scrolled {
+    background: linear-gradient(135deg, #E4A0B4 0%, #E8C4A0 18%, #D4D8A0 34%, #A0D4B8 50%, #A0BCD8 66%, #A8A0D8 82%, #CCA0D4 100%);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
   nav {
     max-width: 1100px;
     margin: 0 auto;
@@ -35,6 +48,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: padding 0.4s ease;
+  }
+
+  .nav-wrapper.scrolled nav {
+    padding: 16px 32px;
+  }
+
+  .nav-wrapper.scrolled .nav-logo {
+    color: var(--off-white);
+  }
+
+  .nav-wrapper.scrolled .nav-cta {
+    border-color: var(--off-white);
+    color: var(--off-white);
+  }
+
+  .nav-wrapper.scrolled .nav-cta:hover {
+    background: var(--off-white);
+    color: var(--off-black);
   }
 
   .nav-logo {
@@ -774,10 +806,12 @@
 <body>
 
 <!-- Nav -->
-<nav>
-  <a href="#" class="nav-logo">Prismo</a>
-  <a href="#contacto" class="nav-cta">Escribinos</a>
-</nav>
+<div class="nav-wrapper">
+  <nav>
+    <a href="#" class="nav-logo">Prismo</a>
+    <a href="#contacto" class="nav-cta">Escribinos</a>
+  </nav>
+</div>
 
 <!-- Hero -->
 <section class="hero">
@@ -1101,6 +1135,12 @@
 </footer>
 
 <script>
+// Nav scroll effect
+const navWrapper = document.querySelector('.nav-wrapper');
+window.addEventListener('scroll', () => {
+  navWrapper.classList.toggle('scrolled', window.scrollY > 60);
+});
+
 // Card social rotation
 const phSlides = document.querySelectorAll('#phCardSocial .pcs-slide');
 const phDots = document.querySelectorAll('#phCardSocial .pcs-dot');
