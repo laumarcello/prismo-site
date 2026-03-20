@@ -389,7 +389,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--stone);
+    color: var(--mid-gray);
     text-align: center;
     margin-bottom: 12px;
   }
@@ -890,26 +890,38 @@
   }
 
   /* --- CTA final --- */
+  .cta-wrapper {
+    background: var(--snow);
+    position: relative;
+  }
+
+  .cta-spectral-top {
+    height: 3px;
+    background: var(--spectral-full);
+  }
+
   .cta-final {
-    padding-top: 60px;
-    padding-bottom: 100px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px 88px;
     text-align: center;
   }
 
   .cta-final h2 {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 800;
-    font-size: clamp(24px, 3.5vw, 36px);
-    margin-bottom: 16px;
+    font-size: clamp(28px, 4vw, 44px);
+    margin-bottom: 20px;
     color: var(--off-black);
+    line-height: 1.15;
   }
 
   .cta-final p {
-    font-size: 16px;
+    font-size: 17px;
     color: var(--mid-gray);
     font-weight: 500;
-    margin-bottom: 32px;
-    max-width: 500px;
+    margin-bottom: 40px;
+    max-width: 540px;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
@@ -1068,9 +1080,8 @@
     </div>
   </div>
 
-  <div class="hero-spectral"></div>
-  <h1>¿Cuánto más venderías si tu equipo tuviera el material justo para cada cliente?</h1>
-  <p>Generamos todo el material de producto que tu empresa necesita, en tiempo récord y a partir de los datos que ya tenés.</p>
+  <h1>¿Cuántas ventas perdés porque tu equipo no tiene suficiente material para mostrar?</h1>
+  <p>Prismo genera todo el material de ventas que tu empresa necesita, en tiempo récord y a partir de los datos que ya tenés.</p>
   <a href="#contacto" class="hero-cta">Quiero saber más</a>
 </section>
 
@@ -1100,7 +1111,7 @@
 <!-- Qué recibís -->
 <section class="que">
   <div class="section-label">Qué recibís</div>
-  <div class="section-title">Material profesional para cada producto de tu catálogo.</div>
+  <div class="section-title">Material listo para vender,<br>para cada producto de tu catálogo.</div>
   <div class="que-items">
 
     <!-- Fichas de producto -->
@@ -1183,7 +1194,7 @@
     <div class="que-item">
       <div class="que-item-text">
         <h4>Material para revendedores</h4>
-        <p>Que tus revendedores pueden usar con su cliente final. Profesional y con tu marca.</p>
+        <p>Fichas y cards listas para que tu red de ventas las use directo con el cliente final. Con tu marca, sin que tengan que armar nada.</p>
       </div>
       <div class="que-item-visual">
         <div class="ph-ficha">
@@ -1237,7 +1248,7 @@
 
   </div>
   <div class="que-footer">
-    Todo a partir de los datos que ya tenés. Sin esperar semanas. Sin rehacer todo cada vez que cambia algo.
+    Un sistema, no un diseño puntual. Cambia un precio, se actualiza. Sumás un producto, se genera. Todo automático.
   </div>
 </section>
 
@@ -1276,21 +1287,24 @@
 </section>
 
 <!-- CTA final -->
+<div class="cta-wrapper">
+<div class="cta-spectral-top"></div>
 <section class="cta-final" id="contacto">
-  <h2>¿Querés ver cómo quedarían tus productos?</h2>
-  <p>Mandanos 5 productos con sus datos y fotos. Te mostramos cómo se ven resueltos con Prismo. Sin compromiso.</p>
+  <h2>¿Querés probarlo con tus productos?</h2>
+  <p>Armemos una muestra real con tu catálogo.</p>
   <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-    <a href="demo.html">Pedí una Demo</a>
+    <a href="demo.html">Pedí una Demo Gratuita</a>
     <a href="https://wa.me/5491169765500" style="background: var(--snow); color: var(--off-black); border: 1px solid var(--off-black);">Consultanos por WhatsApp</a>
   </div>
 </section>
+</div>
 
 <!-- Formulario de contacto — full width dark -->
 <div class="contacto-wrapper">
   <div class="contacto-spectral-top"></div>
   <section class="contacto">
     <div class="contacto-inner">
-      <div class="contacto-title">Escribinos</div>
+      <div class="contacto-title">¿Te quedan dudas? Escribinos.</div>
       <div class="contacto-sub">Te respondemos en menos de 24 hs.</div>
       <form id="contactForm" class="contacto-grid">
         <div>
