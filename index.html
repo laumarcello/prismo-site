@@ -1012,7 +1012,7 @@
         </g>
       </svg>
     </a>
-    <a href="#contacto" class="nav-cta">Escribinos</a>
+    <a href="#contacto" class="nav-cta" onclick="gtag('event','click_nav_cta',{event_category:'CTA',event_label:'Escribinos'});">Escribinos</a>
   </nav>
 </div>
 
@@ -1115,7 +1115,7 @@
 
   <h1>¿Cuántas ventas perdés porque tu equipo no tiene suficiente material para mostrar?</h1>
   <p>Prismo genera todo el material de ventas que tu empresa necesita, en tiempo récord y a partir de la información de tus productos.</p>
-  <a href="#contacto" class="hero-cta">Quiero saber más</a>
+  <a href="#contacto" class="hero-cta" onclick="gtag('event','click_hero_cta',{event_category:'CTA',event_label:'Quiero saber más'});">Quiero saber más</a>
 </section>
 
 <!-- Cómo funciona -->
@@ -1326,8 +1326,8 @@
   <h2>¿Querés probarlo?</h2>
   <p>Armemos una muestra real con tus productos.</p>
   <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-    <a href="demo.html">Pedí una Demo Gratuita</a>
-    <a href="https://wa.me/5491169765500" style="background: var(--snow); color: var(--off-black); border: 1px solid var(--off-black);">Consultanos por WhatsApp</a>
+    <a href="demo.html" onclick="gtag('event','click_demo',{event_category:'CTA',event_label:'Demo Gratuita'});">Pedí una Demo Gratuita</a>
+    <a href="https://wa.me/5491169765500" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'WhatsApp'});" style="background: var(--snow); color: var(--off-black); border: 1px solid var(--off-black);">Consultanos por WhatsApp</a>
   </div>
 </section>
 </div>
@@ -1403,6 +1403,9 @@ document.getElementById('contactForm').addEventListener('submit', async function
       })
     });
   } catch(err) {}
+
+  // GA4 conversion event
+  gtag('event', 'form_contacto_enviado', {event_category: 'Conversion', event_label: data.get('empresa') || 'sin empresa'});
 
   // Show success — hide title and form
   form.style.display = 'none';
