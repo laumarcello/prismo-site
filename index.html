@@ -56,10 +56,6 @@
     padding: 16px 32px;
   }
 
-  .nav-wrapper.scrolled .nav-logo {
-    color: var(--off-white);
-  }
-
   .nav-wrapper.scrolled .nav-cta {
     border-color: var(--off-white);
     color: var(--off-white);
@@ -71,13 +67,28 @@
   }
 
   .nav-logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--off-black);
     text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo-light,
+  .nav-logo-dark {
+    height: 24px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-logo-dark {
+    display: none;
+  }
+
+  .nav-wrapper.scrolled .nav-logo-light {
+    display: none;
+  }
+
+  .nav-wrapper.scrolled .nav-logo-dark {
+    display: block;
   }
 
   .nav-cta {
@@ -978,7 +989,26 @@
 <!-- Nav -->
 <div class="nav-wrapper">
   <nav>
-    <a href="#" class="nav-logo">Prismo</a>
+    <a href="#" class="nav-logo">
+      <img src="../Branding/Assets/Logo Prismo-01.svg" alt="Prismo" class="nav-logo-light">
+      <svg class="nav-logo-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 409.31 87.93">
+        <defs>
+          <style>.nlg0{mix-blend-mode:hard-light;opacity:.55}.nlg1{isolation:isolate}.nlg2{fill:#fff}</style>
+        </defs>
+        <g class="nlg1">
+          <g>
+            <g class="nlg0">
+              <path class="nlg2" d="M9.07,78.33l-.1-68.82h33.01c18.71,0,30.11,7.7,30.11,27.21,0,22.61-20.21,26.41-38.21,26.41v15.2H9.07ZM33.87,40.81h2.6c2.7,0,10.7.3,10.7-3.9s-8-3.8-10.7-3.8h-2.6v7.7Z"/>
+              <path class="nlg2" d="M99.59,78.33h-24.81l-.1-68.82h36.11c13.81,0,27.01,6,27.01,21.51,0,12.5-10.8,17.31-21.51,18.91,3.4,3,8.7,3.5,12.9,3.5,3.4,0,6.8-.4,10.1-.9v25.21c-3.6.8-7.2,1.2-10.8,1.2-15.01,0-24.01-8.2-27.11-22.51h-1.8v21.91ZM99.59,33.11v7.7h2.6c2.7,0,10.7.3,10.7-3.9s-8-3.8-10.7-3.8h-2.6Z"/>
+              <path class="nlg2" d="M142.99,78.33l-.1-68.82h24.91v68.82h-24.81Z"/>
+              <path class="nlg2" d="M202,59.42c1.1,0,4.1,0,4.1-1.8,0-6.6-34.61-2-34.61-26.91,0-18.01,16.51-22.61,31.51-22.61,9.4,0,21.11,2.1,29.71,6.1l-8.3,22.31c-5.5-3.5-15.71-7.9-22.31-7.9-1.3,0-4,.2-4,2.2,0,2.3,4,3.2,5.7,3.6,14.3,3.6,28.91,6.1,28.91,24.71s-18.11,20.41-32.21,20.41c-8.4,0-20.61-1.1-28.61-4.5l1.4-24.31c6.7,4,20.91,8.7,28.71,8.7Z"/>
+              <path class="nlg2" d="M235.9,78.33l-.1-68.82h35.61l9.3,34.31,8.3-34.31h37.41l-.1,68.82h-24.71v-34.71l-10.6,34.71h-19.31l-11-35.41v35.41h-24.81Z"/>
+              <path class="nlg2" d="M329.32,43.92c0-21.11,14.31-35.81,35.51-35.81s35.51,14.71,35.51,35.81-14.31,35.91-35.51,35.91-35.51-14.81-35.51-35.91ZM356.93,43.81c0,4.5,1.9,10.6,7.4,10.6s8.5-5.4,8.5-10.5-2.8-10.5-8.5-10.5c-5.3,0-7.4,5.9-7.4,10.4Z"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </a>
     <a href="#contacto" class="nav-cta">Escribinos</a>
   </nav>
 </div>
