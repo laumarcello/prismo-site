@@ -55,9 +55,7 @@
     transition: padding 0.4s ease;
   }
 
-  .nav-wrapper.scrolled nav {
-    padding: 16px 32px;
-  }
+  .nav-wrapper.scrolled nav { padding: 16px 32px; }
 
   .nav-wrapper.scrolled .nav-cta {
     border-color: var(--off-white);
@@ -82,17 +80,9 @@
     display: block;
   }
 
-  .nav-logo-dark {
-    display: none;
-  }
-
-  .nav-wrapper.scrolled .nav-logo-light {
-    display: none;
-  }
-
-  .nav-wrapper.scrolled .nav-logo-dark {
-    display: block;
-  }
+  .nav-logo-dark { display: none; }
+  .nav-wrapper.scrolled .nav-logo-light { display: none; }
+  .nav-wrapper.scrolled .nav-logo-dark { display: block; }
 
   .nav-cta {
     font-weight: 700;
@@ -117,20 +107,38 @@
     padding: 0 32px;
   }
 
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--mid-gray);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(24px, 3.5vw, 36px);
+    text-align: center;
+    margin-bottom: 56px;
+    color: var(--off-black);
+    line-height: 1.2;
+  }
+
   /* --- Hero --- */
   .hero {
     padding-top: 80px;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
 
-  /* --- Floating cards --- */
   .floating-cards {
     position: absolute;
     inset: 0;
-    perspective: 1200px;
     pointer-events: none;
     z-index: 0;
   }
@@ -140,10 +148,31 @@
     z-index: 1;
   }
 
-  .fcard {
+  .orbit {
     position: absolute;
-    perspective: 600px;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    animation: orbitSpin 30s linear infinite;
   }
+
+  @keyframes orbitSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .orbit .fcard {
+    position: absolute;
+    animation: counterSpin 30s linear infinite;
+  }
+
+  @keyframes counterSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+  }
+
+  .fcard { position: absolute; perspective: 600px; }
 
   .fcard-flip {
     width: 100%;
@@ -155,8 +184,7 @@
   .fcard-front, .fcard-back {
     position: absolute;
     top: 0; left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     backface-visibility: hidden;
     border-radius: 10px;
     overflow: hidden;
@@ -188,7 +216,6 @@
     40%, 100% { transform: rotateY(360deg); }
   }
 
-  /* Stagger flip timing per card */
   .fcard-1  .fcard-flip { animation-delay: 0s; }
   .fcard-2  .fcard-flip { animation-delay: -0.8s; }
   .fcard-3  .fcard-flip { animation-delay: -1.6s; }
@@ -201,16 +228,8 @@
   .fcard-10 .fcard-flip { animation-delay: -2.8s; }
   .fcard-11 .fcard-flip { animation-delay: -3.6s; }
   .fcard-12 .fcard-flip { animation-delay: -4.4s; }
-  .fcard-13 .fcard-flip { animation-delay: -0.6s; }
-  .fcard-14 .fcard-flip { animation-delay: -1.4s; }
-  .fcard-15 .fcard-flip { animation-delay: -2.2s; }
-  .fcard-16 .fcard-flip { animation-delay: -3.0s; }
-  .fcard-17 .fcard-flip { animation-delay: -3.8s; }
-  .fcard-18 .fcard-flip { animation-delay: -4.6s; }
 
-  .fcard-inner {
-    padding: 10px 12px;
-  }
+  .fcard-inner { padding: 10px 12px; }
 
   .fcard-photo {
     width: 100%;
@@ -231,26 +250,10 @@
   .fcard-line.mid { width: 80%; }
   .fcard-line.price { width: 40%; background: var(--stone); height: 8px; }
 
-  /* Table card variant */
-  .fcard-table-row {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 4px;
-  }
+  .fcard-table-row { display: flex; gap: 6px; margin-bottom: 4px; }
+  .fcard-table-cell { height: 5px; flex: 1; background: var(--warm-gray); border-radius: 2px; }
+  .fcard-table-header .fcard-table-cell { background: var(--stone); height: 6px; }
 
-  .fcard-table-cell {
-    height: 5px;
-    flex: 1;
-    background: var(--warm-gray);
-    border-radius: 2px;
-  }
-
-  .fcard-table-header .fcard-table-cell {
-    background: var(--stone);
-    height: 6px;
-  }
-
-  /* Story card variant */
   .fcard-story {
     display: flex;
     flex-direction: column;
@@ -258,73 +261,29 @@
     padding: 12px 10px;
   }
 
-  .fcard-story .fcard-photo {
-    width: 70%;
-    aspect-ratio: 3/4;
-  }
+  .fcard-story .fcard-photo { width: 70%; aspect-ratio: 3/4; }
 
-  /* Orbit container — 2D circular orbit */
-  .floating-cards {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
+  .fcard-1, .fcard-4, .fcard-7  { height: 150px; }
+  .fcard-2, .fcard-8             { height: 160px; }
+  .fcard-3, .fcard-9             { height: 120px; }
+  .fcard-5, .fcard-10            { height: 60px; }
+  .fcard-6, .fcard-11, .fcard-12 { height: 110px; }
 
-  .orbit {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    animation: orbitSpin 30s linear infinite;
-  }
-
-  @keyframes orbitSpin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  .orbit .fcard {
-    position: absolute;
-    /* Counter-rotate to stay upright */
-    animation: counterSpin 30s linear infinite;
-  }
-
-  @keyframes counterSpin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(-360deg); }
-  }
-
-  /* Card heights by type */
-  .fcard-1, .fcard-4, .fcard-7, .fcard-13, .fcard-16  { height: 150px; }
-  .fcard-2, .fcard-8, .fcard-14                         { height: 160px; }
-  .fcard-3, .fcard-9, .fcard-17                         { height: 120px; }
-  .fcard-5, .fcard-10, .fcard-15                        { height: 60px; }
-  .fcard-6, .fcard-11, .fcard-12, .fcard-18             { height: 110px; }
-
-  /* 18 cards distributed on ellipse — 20deg apart */
   .fcard-1  { width: 105px; top: -270px; left: 200px;  opacity: 0.7; }
   .fcard-2  { width: 90px;  top: -240px; left: 360px;  opacity: 0.6; }
   .fcard-3  { width: 120px; top: -150px; left: 470px;  opacity: 0.7; }
   .fcard-4  { width: 95px;  top: -40px;  left: 510px;  opacity: 0.6; }
   .fcard-5  { width: 100px; top: 80px;   left: 470px;  opacity: 0.65; }
   .fcard-6  { width: 90px;  top: 180px;  left: 360px;  opacity: 0.6; }
-  .fcard-7  { width: 110px; top: 220px;  left: 180px;  opacity: 0.65; }
-  .fcard-8  { width: 85px;  top: 230px;  left: -20px;  opacity: 0.55; }
-  .fcard-9  { width: 105px; top: 220px;  left: -220px; opacity: 0.6; }
-  .fcard-10 { width: 95px;  top: 180px;  left: -400px; opacity: 0.6; }
-  .fcard-11 { width: 80px;  top: 80px;   left: -490px; opacity: 0.55; }
-  .fcard-12 { width: 90px;  top: -30px;  left: -520px; opacity: 0.6; }
-  .fcard-13 { width: 100px; top: -150px; left: -480px; opacity: 0.65; }
-  .fcard-14 { width: 88px;  top: -240px; left: -380px; opacity: 0.6; }
-  .fcard-15 { width: 95px;  top: -270px; left: -230px; opacity: 0.55; }
-  .fcard-16 { width: 85px;  top: -280px; left: -60px;  opacity: 0.5; }
-  .fcard-17 { width: 110px; top: -280px; left: 80px;   opacity: 0.55; }
-  .fcard-18 { width: 80px;  top: 230px;  left: -120px; opacity: 0.5; }
+  .fcard-7  { width: 110px; top: 220px;  left: -220px; opacity: 0.65; }
+  .fcard-8  { width: 85px;  top: 230px;  left: -400px; opacity: 0.55; }
+  .fcard-9  { width: 105px; top: -150px; left: -480px; opacity: 0.6; }
+  .fcard-10 { width: 95px;  top: -240px; left: -380px; opacity: 0.6; }
+  .fcard-11 { width: 80px;  top: -270px; left: -230px; opacity: 0.55; }
+  .fcard-12 { width: 90px;  top: -280px; left: -60px;  opacity: 0.5; }
 
   @media (max-width: 900px) {
-    .fcard-11, .fcard-12, .fcard-15, .fcard-16, .fcard-17, .fcard-18 { display: none; }
+    .fcard-9, .fcard-10, .fcard-11, .fcard-12 { display: none; }
     .fcard-1  { top: -200px; left: 140px; }
     .fcard-2  { top: -160px; left: 250px; }
     .fcard-3  { top: -40px;  left: 280px; }
@@ -333,20 +292,15 @@
     .fcard-6  { top: 180px;  left: -220px; }
     .fcard-7  { top: 100px;  left: -300px; }
     .fcard-8  { top: -20px;  left: -310px; }
-    .fcard-9  { top: -130px; left: -280px; }
-    .fcard-10 { top: -200px; left: -180px; }
-    .fcard-13 { top: 160px;  left: 0px; }
-    .fcard-14 { top: -180px; left: -60px; }
   }
 
   @media (max-width: 600px) {
-    .fcard-5, .fcard-6, .fcard-7, .fcard-8, .fcard-10, .fcard-11,
-    .fcard-12, .fcard-13, .fcard-14, .fcard-15, .fcard-16, .fcard-17, .fcard-18 { display: none; }
+    .fcard-5, .fcard-6, .fcard-7, .fcard-8, .fcard-9,
+    .fcard-10, .fcard-11, .fcard-12 { display: none; }
     .fcard-1  { top: -160px; left: 100px; width: 80px; }
     .fcard-2  { top: -60px;  left: 150px; width: 75px; }
     .fcard-3  { top: 80px;   left: 120px; width: 85px; }
     .fcard-4  { top: 100px;  left: -160px; width: 80px; }
-    .fcard-9  { top: -80px;  left: -170px; width: 85px; }
   }
 
   .hero h1 {
@@ -368,14 +322,6 @@
     line-height: 1.6;
   }
 
-  .hero-spectral {
-    width: 120px;
-    height: 3px;
-    margin: 0 auto 40px;
-    border-radius: 2px;
-    background: var(--spectral-full);
-  }
-
   .hero-cta {
     display: inline-block;
     font-weight: 700;
@@ -388,55 +334,41 @@
     transition: all 0.2s;
   }
 
-  .hero-cta:hover {
-    opacity: 0.85;
-  }
+  .hero-cta:hover { opacity: 0.85; }
 
-  /* --- Como funciona --- */
-  .como {
+
+  /* --- Arquetipos (Para quién) --- */
+  .arquetipos {
     padding-top: 80px;
     padding-bottom: 80px;
   }
 
-  .section-label {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--mid-gray);
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: clamp(24px, 3.5vw, 36px);
-    text-align: center;
-    margin-bottom: 56px;
-    color: var(--off-black);
-  }
-
-  .pasos {
+  .arquetipos-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 32px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   @media (max-width: 700px) {
-    .pasos { grid-template-columns: 1fr; }
+    .arquetipos-grid { grid-template-columns: 1fr; }
   }
 
-  .paso {
+  .arquetipo-card {
     background: var(--snow);
     border: 1px solid var(--warm-gray);
     border-radius: 16px;
-    padding: 32px 24px;
+    padding: 32px 28px;
     position: relative;
     overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
 
-  .paso::before {
+  .arquetipo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+
+  .arquetipo-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -445,77 +377,106 @@
     border-radius: 16px 16px 0 0;
   }
 
-  .paso-num {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: 40px;
-    color: var(--warm-gray);
+  .arquetipo-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--stone);
     margin-bottom: 12px;
   }
 
-  .paso h3 {
+  .arquetipo-card h3 {
     font-weight: 800;
-    font-size: 18px;
-    margin-bottom: 12px;
+    font-size: 20px;
     color: var(--off-black);
+    margin-bottom: 10px;
+    line-height: 1.3;
   }
 
-  .paso p {
+  .arquetipo-dolor {
     font-size: 15px;
     color: var(--mid-gray);
     line-height: 1.6;
-    font-weight: 400;
+    margin-bottom: 16px;
   }
 
-  /* --- Que recibis --- */
-  .que {
+  .arquetipo-recibe {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--off-black);
+    padding-top: 16px;
+    border-top: 1px solid var(--warm-gray);
+  }
+
+  .arquetipo-recibe span {
+    color: var(--green);
+    margin-right: 6px;
+  }
+
+  /* --- Piezas (Qué recibís) --- */
+  .piezas {
     padding-top: 80px;
     padding-bottom: 80px;
   }
 
-  .entregables {
+  .piezas-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+  }
+
+  @media (max-width: 900px) {
+    .piezas-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 600px) {
-    .entregables { grid-template-columns: 1fr; }
+    .piezas-grid { grid-template-columns: 1fr; }
   }
 
-  .entregable {
+  .pieza-card {
     background: var(--snow);
     border: 1px solid var(--warm-gray);
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pieza-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--spectral-cool);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .pieza-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--warm-gray);
     border-radius: 12px;
-    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
   }
 
-  .entregable h4 {
+  .pieza-card h4 {
     font-weight: 800;
-    font-size: 16px;
-    margin-bottom: 8px;
+    font-size: 17px;
     color: var(--off-black);
+    margin-bottom: 8px;
   }
 
-  .entregable p {
+  .pieza-card p {
     font-size: 14px;
     color: var(--mid-gray);
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
-  .que-footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 16px;
-    color: var(--mid-gray);
-    font-weight: 500;
-    line-height: 1.6;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
 
   /* --- Casos --- */
   .casos {
@@ -571,207 +532,203 @@
     font-weight: 800;
     font-size: 22px;
     color: var(--off-white);
+    margin-bottom: 12px;
   }
 
-  /* --- Que recibis: placeholders de Frida --- */
-  .que-items {
+  .caso-detalle {
     display: flex;
-    flex-direction: column;
-    gap: 64px;
-    max-width: 900px;
-    margin: 0 auto;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
-  .que-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
+  .caso-dato {
+    font-size: 12px;
+    color: var(--stone);
   }
 
-  .que-item:nth-child(even) { direction: rtl; }
-  .que-item:nth-child(even) > * { direction: ltr; }
-
-  .que-item-text h4 {
+  .caso-dato strong {
+    display: block;
+    font-size: 18px;
     font-weight: 800;
-    font-size: 20px;
-    margin-bottom: 8px;
+    color: var(--off-white);
+    margin-bottom: 2px;
+  }
+
+  /* --- Cómo funciona --- */
+  .como {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .pasos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+  }
+
+  @media (max-width: 700px) {
+    .pasos { grid-template-columns: 1fr; }
+  }
+
+  .paso {
+    background: var(--snow);
+    border: 1px solid var(--warm-gray);
+    border-radius: 16px;
+    padding: 32px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .paso::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--spectral-cool);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .paso-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    color: var(--warm-gray);
+    margin-bottom: 12px;
+  }
+
+  .paso h3 {
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 12px;
     color: var(--off-black);
   }
 
-  .que-item-text p {
+  .paso p {
     font-size: 15px;
     color: var(--mid-gray);
     line-height: 1.6;
   }
 
-  .que-item-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Placeholder card styles from Frida */
-  .ph-img { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; }
-  .ph-box { border: 1.5px dashed var(--warm-gray); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 20px; }
-
-  /* Ficha placeholder */
-  .ph-ficha {
-    width: 380px; height: 160px;
-    background: var(--snow); border-radius: 10px; border: 1px solid var(--warm-gray);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    display: grid; grid-template-columns: 140px 1fr; overflow: hidden; position: relative;
-  }
-  .ph-ficha .fi-spectral { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--spectral-cool); border-radius: 10px 10px 0 0; }
-  .ph-ficha .fi-img { background: var(--off-white); display: flex; align-items: center; justify-content: center; }
-  .ph-ficha .fi-body { padding: 16px; display: flex; flex-direction: column; justify-content: center; }
-  .ph-ficha .fi-brand { font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--stone); margin-bottom: 3px; }
-  .ph-ficha .fi-name { font-size: 15px; font-weight: 800; color: var(--off-black); margin-bottom: 8px; }
-  .ph-ficha .fi-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 12px; }
-  .ph-ficha .fi-spec { display: flex; justify-content: space-between; font-size: 8px; padding: 2px 0; border-bottom: 1px solid var(--warm-gray); }
-  .ph-ficha .fi-spec .fl { color: var(--mid-gray); } .ph-ficha .fi-spec .fv { color: var(--off-black); font-weight: 700; }
-  .ph-ficha .fi-price { margin-top: 8px; font-size: 14px; font-weight: 800; }
-  .ph-ficha .fi-price .cur { font-size: 9px; color: var(--mid-gray); }
-  .ph-ficha .fi-mark { position: absolute; bottom: 6px; right: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 6px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--stone); }
-
-  /* Card social placeholder */
-  .ph-card-social {
-    width: 220px; height: 220px;
-    background: var(--snow); border-radius: 10px; border: 1px solid var(--warm-gray);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; display: flex; flex-direction: column; position: relative;
-  }
-  .ph-card-social .pcs-spectral { height: 2px; background: var(--spectral-cool); }
-  .ph-card-social .pcs-image { flex: 1; background: var(--off-white); display: flex; align-items: center; justify-content: center; position: relative; }
-  .ph-card-social .pcs-tag { position: absolute; top: 8px; left: 8px; font-size: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--off-white); background: var(--off-black); padding: 2px 6px; border-radius: 3px; }
-  .ph-card-social .pcs-bottom { padding: 10px 12px; border-top: 1px solid var(--warm-gray); position: relative; min-height: 60px; }
-  .ph-card-social .pcs-name { font-size: 12px; font-weight: 800; margin-bottom: 2px; }
-  .ph-card-social .pcs-desc { font-size: 8px; color: var(--mid-gray); margin-bottom: 4px; }
-  .ph-card-social .pcs-price { font-size: 13px; font-weight: 800; }
-  .ph-card-social .pcs-price .cur { font-size: 8px; color: var(--mid-gray); }
-  .ph-card-social .pcs-slide { position: absolute; top: 10px; left: 12px; right: 12px; opacity: 0; transition: opacity 0.5s; }
-  .ph-card-social .pcs-slide.active { opacity: 1; }
-  .ph-card-social .pcs-dots { position: absolute; bottom: 5px; right: 8px; display: flex; gap: 3px; }
-  .ph-card-social .pcs-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--warm-gray); }
-  .ph-card-social .pcs-dot.active { background: var(--off-black); }
-  .ph-card-social .pcs-mark { position: absolute; bottom: 5px; right: 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 6px; letter-spacing: 1px; text-transform: uppercase; color: var(--stone); }
-
-  /* Price list placeholder */
-  .ph-price-list {
-    width: 300px;
-    background: var(--snow); border-radius: 10px; border: 1px solid var(--warm-gray);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; position: relative;
-  }
-  .ph-price-list .ppl-header { padding: 10px 14px; background: var(--off-black); display: flex; justify-content: space-between; align-items: center; }
-  .ph-price-list .ppl-brand { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--off-white); }
-  .ph-price-list .ppl-date { font-size: 7px; color: var(--stone); }
-  .ph-price-list .ppl-spectral { height: 2px; background: var(--spectral-full); }
-  .ph-price-list table { width: 100%; border-collapse: collapse; font-size: 9px; }
-  .ph-price-list th { padding: 5px 14px; text-align: left; font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--stone); border-bottom: 1px solid var(--warm-gray); }
-  .ph-price-list th:last-child { text-align: right; }
-  .ph-price-list td { padding: 6px 14px; border-bottom: 1px solid var(--warm-gray); }
-  .ph-price-list td:last-child { text-align: right; font-weight: 800; }
-  .ph-price-list td.code { color: var(--mid-gray); font-size: 8px; }
-  .ph-price-list tr:nth-child(even) td { background: var(--off-white); }
-  .ph-price-list .ppl-footer { padding: 6px 14px; display: flex; justify-content: space-between; background: var(--off-white); font-size: 7px; color: var(--stone); }
-  .ph-price-list .ppl-mark { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
-
-  /* Story placeholder */
-  .ph-story {
-    width: 150px; height: 266px;
-    background: var(--off-black); border-radius: 10px; overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative;
-  }
-  .ph-story .pst-spectral { height: 2px; background: var(--spectral-full); }
-  .ph-story .pst-brand { position: absolute; top: 10px; left: 10px; font-size: 7px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--off-white); opacity: 0.6; }
-  .ph-story .pst-image { flex: 1; background: #222; display: flex; align-items: center; justify-content: center; }
-  .ph-story .pst-body { padding: 12px; }
-  .ph-story .pst-claim { font-size: 12px; font-weight: 800; color: var(--off-white); line-height: 1.2; margin-bottom: 4px; }
-  .ph-story .pst-sub { font-size: 7px; color: var(--stone); margin-bottom: 8px; }
-  .ph-story .pst-cta { font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--off-black); background: var(--off-white); padding: 4px 10px; border-radius: 3px; display: inline-block; }
-
-  .que-redes-visual {
-    position: relative;
-    min-height: 320px;
-    justify-content: center;
-  }
-
-  .que-redes-visual .ph-card-social {
-    position: relative;
-    z-index: 1;
-    margin-right: 40px;
-  }
-
-  .que-redes-visual .ph-story {
-    position: absolute;
-    right: calc(50% - 180px);
-    bottom: -40px;
-    z-index: 2;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  }
-
-  @media (max-width: 700px) {
-    .que-item { grid-template-columns: 1fr; }
-    .que-item:nth-child(even) { direction: ltr; }
-    .que-item-visual { order: -1; }
-    .ph-ficha { width: 100%; max-width: 380px; }
-    .ph-price-list { width: 100%; max-width: 300px; }
-    .que-redes-visual .ph-card-social { width: 180px; height: 180px; }
-    .que-redes-visual .ph-story { width: 120px; height: 213px; right: 10%; bottom: -10px; }
-  }
-
-  /* --- Para quien --- */
-  .para-quien {
+  /* --- Verticales --- */
+  .verticales {
     padding-top: 80px;
     padding-bottom: 80px;
   }
 
-  .checks {
-    max-width: 600px;
-    margin: 0 auto 40px;
+  .verticales-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 
-  .check-item {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--warm-gray);
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--off-black);
+  @media (max-width: 700px) {
+    .verticales-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
-  .check-item:last-child {
-    border-bottom: none;
+  @media (max-width: 480px) {
+    .verticales-grid { grid-template-columns: 1fr; }
   }
 
-  .check-icon {
-    color: var(--green);
+  .vertical-chip {
+    background: var(--snow);
+    border: 1px solid var(--warm-gray);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: left;
+    transition: transform 0.2s;
+  }
+
+  .vertical-chip:hover {
+    transform: translateY(-2px);
+  }
+
+  .vertical-chip h4 {
     font-weight: 800;
-    flex-shrink: 0;
-  }
-
-  .industrias {
-    text-align: center;
-    font-size: 15px;
-    color: var(--mid-gray);
-    font-weight: 500;
-  }
-
-  .industrias strong {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--stone);
+    font-size: 16px;
+    color: var(--off-black);
     margin-bottom: 8px;
   }
 
-  /* Hide reCAPTCHA badge */
-  .grecaptcha-badge { visibility: hidden; }
+  .vertical-chip p {
+    font-size: 14px;
+    color: var(--mid-gray);
+    line-height: 1.55;
+  }
 
-  /* --- Contact form dark — full width --- */
+  /* --- Demo CTA --- */
+  .demo-wrapper {
+    background: var(--snow);
+    position: relative;
+  }
+
+  .demo-spectral-top {
+    height: 3px;
+    background: var(--spectral-full);
+  }
+
+  .demo {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px 88px;
+    text-align: center;
+  }
+
+  .demo h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 4vw, 44px);
+    margin-bottom: 16px;
+    color: var(--off-black);
+    line-height: 1.15;
+  }
+
+  .demo p {
+    font-size: 17px;
+    color: var(--mid-gray);
+    font-weight: 500;
+    margin-bottom: 40px;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .demo-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .demo-buttons a {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px 40px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .demo-btn-primary {
+    color: var(--off-white);
+    background: var(--off-black);
+  }
+
+  .demo-btn-primary:hover { opacity: 0.85; }
+
+  .demo-btn-secondary {
+    background: var(--snow);
+    color: var(--off-black);
+    border: 1px solid var(--off-black);
+  }
+
+  .demo-btn-secondary:hover {
+    background: var(--off-black);
+    color: var(--off-white);
+  }
+
+  /* --- Contact form --- */
   .contacto-wrapper {
     background: var(--off-black);
     position: relative;
@@ -839,19 +796,12 @@
   }
 
   .contacto-grid input::placeholder,
-  .contacto-grid textarea::placeholder {
-    color: rgba(255,255,255,0.25);
-  }
+  .contacto-grid textarea::placeholder { color: rgba(255,255,255,0.25); }
 
   .contacto-grid input:focus,
-  .contacto-grid textarea:focus {
-    border-color: rgba(255,255,255,0.3);
-  }
+  .contacto-grid textarea:focus { border-color: rgba(255,255,255,0.3); }
 
-  .contacto-grid textarea {
-    resize: vertical;
-    min-height: 80px;
-  }
+  .contacto-grid textarea { resize: vertical; min-height: 80px; }
 
   .contacto-submit {
     grid-column: 1 / -1;
@@ -881,110 +831,17 @@
     padding: 40px 0;
   }
 
-  .contacto-success .cs-check {
-    font-size: 32px;
-    margin-bottom: 12px;
-  }
-
-  .contacto-success .cs-msg {
-    font-weight: 800;
-    font-size: 20px;
-    color: var(--off-white);
-    margin-bottom: 6px;
-  }
-
-  .contacto-success .cs-sub {
-    font-size: 14px;
-    color: var(--stone);
-  }
+  .contacto-success .cs-check { font-size: 32px; margin-bottom: 12px; }
+  .contacto-success .cs-msg { font-weight: 800; font-size: 20px; color: var(--off-white); margin-bottom: 6px; }
+  .contacto-success .cs-sub { font-size: 14px; color: var(--stone); }
 
   @media (max-width: 600px) {
     .contacto-grid { grid-template-columns: 1fr; }
-    .contacto-box { padding: 28px 20px; }
   }
 
-  /* --- CTA final --- */
-  .cta-wrapper {
-    background: var(--snow);
-    position: relative;
-  }
+  /* Hide reCAPTCHA badge */
+  .grecaptcha-badge { visibility: hidden; }
 
-  .cta-spectral-top {
-    height: 3px;
-    background: var(--spectral-full);
-  }
-
-  .cta-final {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 80px 32px 88px;
-    text-align: center;
-  }
-
-  .cta-final h2 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: clamp(28px, 4vw, 44px);
-    margin-bottom: 20px;
-    color: var(--off-black);
-    line-height: 1.15;
-  }
-
-  .cta-final p {
-    font-size: 17px;
-    color: var(--mid-gray);
-    font-weight: 500;
-    margin-bottom: 40px;
-    max-width: 540px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-  }
-
-  .cta-final a {
-    display: inline-block;
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--off-white);
-    background: var(--off-black);
-    padding: 16px 40px;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .cta-final a:hover {
-    opacity: 0.85;
-  }
-
-  /* --- Footer --- */
-  footer {
-    text-align: center;
-    padding: 40px 32px;
-  }
-
-  .footer-logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 800;
-    font-size: 16px;
-    letter-spacing: 2px;
-    color: var(--stone);
-    text-transform: uppercase;
-  }
-
-  .footer-by {
-    font-size: 12px;
-    color: var(--stone);
-    margin-top: 4px;
-  }
-
-  .footer-spectral {
-    width: 60px;
-    height: 2px;
-    margin: 16px auto 0;
-    border-radius: 1px;
-    background: var(--spectral-cool);
-  }
 </style>
 </head>
 <body>
@@ -994,128 +851,135 @@
   <nav>
     <a href="#" class="nav-logo">
       <img src="logo-prismo-light.svg" alt="Prismo" class="nav-logo-light">
-      <svg class="nav-logo-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 409.31 87.93">
-        <defs>
-          <style>.nlg0{mix-blend-mode:hard-light;opacity:.55}.nlg1{isolation:isolate}.nlg2{fill:#fff}</style>
-        </defs>
-        <g class="nlg1">
-          <g>
-            <g class="nlg0">
-              <path class="nlg2" d="M9.07,78.33l-.1-68.82h33.01c18.71,0,30.11,7.7,30.11,27.21,0,22.61-20.21,26.41-38.21,26.41v15.2H9.07ZM33.87,40.81h2.6c2.7,0,10.7.3,10.7-3.9s-8-3.8-10.7-3.8h-2.6v7.7Z"/>
-              <path class="nlg2" d="M99.59,78.33h-24.81l-.1-68.82h36.11c13.81,0,27.01,6,27.01,21.51,0,12.5-10.8,17.31-21.51,18.91,3.4,3,8.7,3.5,12.9,3.5,3.4,0,6.8-.4,10.1-.9v25.21c-3.6.8-7.2,1.2-10.8,1.2-15.01,0-24.01-8.2-27.11-22.51h-1.8v21.91ZM99.59,33.11v7.7h2.6c2.7,0,10.7.3,10.7-3.9s-8-3.8-10.7-3.8h-2.6Z"/>
-              <path class="nlg2" d="M142.99,78.33l-.1-68.82h24.91v68.82h-24.81Z"/>
-              <path class="nlg2" d="M202,59.42c1.1,0,4.1,0,4.1-1.8,0-6.6-34.61-2-34.61-26.91,0-18.01,16.51-22.61,31.51-22.61,9.4,0,21.11,2.1,29.71,6.1l-8.3,22.31c-5.5-3.5-15.71-7.9-22.31-7.9-1.3,0-4,.2-4,2.2,0,2.3,4,3.2,5.7,3.6,14.3,3.6,28.91,6.1,28.91,24.71s-18.11,20.41-32.21,20.41c-8.4,0-20.61-1.1-28.61-4.5l1.4-24.31c6.7,4,20.91,8.7,28.71,8.7Z"/>
-              <path class="nlg2" d="M235.9,78.33l-.1-68.82h35.61l9.3,34.31,8.3-34.31h37.41l-.1,68.82h-24.71v-34.71l-10.6,34.71h-19.31l-11-35.41v35.41h-24.81Z"/>
-              <path class="nlg2" d="M329.32,43.92c0-21.11,14.31-35.81,35.51-35.81s35.51,14.71,35.51,35.81-14.31,35.91-35.51,35.91-35.51-14.81-35.51-35.91ZM356.93,43.81c0,4.5,1.9,10.6,7.4,10.6s8.5-5.4,8.5-10.5-2.8-10.5-8.5-10.5c-5.3,0-7.4,5.9-7.4,10.4Z"/>
-            </g>
-          </g>
-        </g>
-      </svg>
+      <img src="logo-prismo-dark.svg" alt="Prismo" class="nav-logo-dark">
     </a>
-    <a href="#contacto" class="nav-cta" onclick="gtag('event','click_nav_cta',{event_category:'CTA',event_label:'Escribinos'});">Escribinos</a>
+    <a href="#demo" class="nav-cta" onclick="gtag('event','click_nav_cta',{event_category:'CTA',event_label:'Pedí una demo'});">Pedí una demo</a>
   </nav>
 </div>
 
 <!-- Hero -->
 <section class="hero">
-  <!-- Floating 3D cards orbiting -->
   <div class="floating-cards">
     <div class="orbit">
-      <!-- Card 1: Product card -->
-      <div class="fcard fcard-1"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div><div class="fcard-line short"></div><div class="fcard-line price"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 2: Story -->
-      <div class="fcard fcard-2"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-story"><div class="fcard-photo"></div><div class="fcard-line mid" style="width:70%"></div><div class="fcard-line short" style="width:50%"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 3: Price list -->
-      <div class="fcard fcard-3"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-line mid" style="margin-bottom:10px"></div><div class="fcard-table-row fcard-table-header"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 4: Product card -->
-      <div class="fcard fcard-4"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div><div class="fcard-line price"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 5: Ficha técnica -->
-      <div class="fcard fcard-5"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner" style="display:flex;gap:8px;"><div class="fcard-photo" style="width:40px;height:40px;flex-shrink:0;aspect-ratio:auto"></div><div style="flex:1"><div class="fcard-line mid"></div><div class="fcard-line short"></div><div class="fcard-line short" style="width:50%"></div></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 6: E-commerce -->
-      <div class="fcard fcard-6"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line short"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 7: Product card variant -->
-      <div class="fcard fcard-7"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div><div class="fcard-line short"></div><div class="fcard-line price"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 8: Story variant -->
-      <div class="fcard fcard-8"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-story"><div class="fcard-photo"></div><div class="fcard-line mid" style="width:60%"></div><div class="fcard-line short" style="width:40%"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 9: Price list variant -->
-      <div class="fcard fcard-9"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-line short" style="margin-bottom:10px"></div><div class="fcard-table-row fcard-table-header"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 10: Ficha horizontal variant -->
-      <div class="fcard fcard-10"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner" style="display:flex;gap:8px;"><div class="fcard-photo" style="width:36px;height:36px;flex-shrink:0;aspect-ratio:auto"></div><div style="flex:1"><div class="fcard-line mid"></div><div class="fcard-line short"></div></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 11: Small product card -->
-      <div class="fcard fcard-11"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line price"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 12: Small e-commerce -->
-      <div class="fcard fcard-12"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 13: Product card -->
-      <div class="fcard fcard-13"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line short"></div><div class="fcard-line price"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 14: Story -->
-      <div class="fcard fcard-14"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-story"><div class="fcard-photo"></div><div class="fcard-line mid" style="width:65%"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 15: Ficha -->
-      <div class="fcard fcard-15"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner" style="display:flex;gap:8px;"><div class="fcard-photo" style="width:34px;height:34px;flex-shrink:0;aspect-ratio:auto"></div><div style="flex:1"><div class="fcard-line mid"></div><div class="fcard-line short"></div></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 16: Product card -->
-      <div class="fcard fcard-16"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div><div class="fcard-line price"></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 17: Price list -->
-      <div class="fcard fcard-17"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-line mid" style="margin-bottom:8px"></div><div class="fcard-table-row fcard-table-header"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div></div>
-      </div><div class="fcard-back"></div></div></div>
-
-      <!-- Card 18: E-commerce -->
-      <div class="fcard fcard-18"><div class="fcard-flip"><div class="fcard-front">
-        <div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line short"></div><div class="fcard-line mid"></div></div>
-      </div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-1"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div><div class="fcard-line short"></div><div class="fcard-line price"></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-2"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-story"><div class="fcard-photo"></div><div class="fcard-line mid" style="width:70%"></div><div class="fcard-line short" style="width:50%"></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-3"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner"><div class="fcard-line mid" style="margin-bottom:10px"></div><div class="fcard-table-row fcard-table-header"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-4"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div><div class="fcard-line price"></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-5"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner" style="display:flex;gap:8px;"><div class="fcard-photo" style="width:40px;height:40px;flex-shrink:0;aspect-ratio:auto"></div><div style="flex:1"><div class="fcard-line mid"></div><div class="fcard-line short"></div><div class="fcard-line short" style="width:50%"></div></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-6"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line short"></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-7"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div><div class="fcard-line short"></div><div class="fcard-line price"></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-8"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-story"><div class="fcard-photo"></div><div class="fcard-line mid" style="width:60%"></div><div class="fcard-line short" style="width:40%"></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-9"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner"><div class="fcard-line short" style="margin-bottom:10px"></div><div class="fcard-table-row fcard-table-header"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div><div class="fcard-table-row"><div class="fcard-table-cell"></div><div class="fcard-table-cell"></div></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-10"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner" style="display:flex;gap:8px;"><div class="fcard-photo" style="width:36px;height:36px;flex-shrink:0;aspect-ratio:auto"></div><div style="flex:1"><div class="fcard-line mid"></div><div class="fcard-line short"></div></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-11"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line price"></div></div></div><div class="fcard-back"></div></div></div>
+      <div class="fcard fcard-12"><div class="fcard-flip"><div class="fcard-front"><div class="fcard-inner"><div class="fcard-photo"></div><div class="fcard-line mid"></div></div></div><div class="fcard-back"></div></div></div>
     </div>
   </div>
 
-  <h1>¿Cuántas ventas perdés porque tu equipo no tiene suficiente material para mostrar?</h1>
-  <p>Prismo genera todo el material de ventas que tu empresa necesita, en tiempo récord y a partir de la información de tus productos.</p>
-  <a href="#contacto" class="hero-cta" onclick="gtag('event','click_hero_cta',{event_category:'CTA',event_label:'Quiero saber más'});">Quiero saber más</a>
+  <h1>Fichas, imágenes, catálogos y listas de precios. De cada producto. En días.</h1>
+  <p>Prismo genera las fichas, las imágenes, los catálogos y las listas de precios que tu empresa necesita. En tiempo récord.</p>
+  <a href="#demo" class="hero-cta" onclick="gtag('event','click_hero_cta',{event_category:'CTA',event_label:'Ver cómo funciona'});">Ver cómo funciona</a>
+</section>
+
+<!-- Stats bar removida por feedback Laura: volúmenes todavía chicos para mostrar.
+     "10 días promedio" se conserva integrado en los casos reales. -->
+
+<!-- Para quién es — Arquetipos -->
+<section class="arquetipos">
+  <div class="section-label">Para quién es</div>
+  <div class="section-title">Prismo es para vos si:</div>
+  <div class="arquetipos-grid">
+    <div class="arquetipo-card">
+      <div class="arquetipo-tag">Distribuidor / Mayorista</div>
+      <h3>Tus vendedores y clientes necesitan imágenes promocionales y no tenés cómo abastecer a todos.</h3>
+      <div class="arquetipo-dolor">Vendés productos de muchas marcas. Cada una te manda imágenes distintas, en calidad distinta, o directamente no te manda. Tu equipo comercial improvisa.</div>
+      <div class="arquetipo-recibe"><span>&#10003;</span> Fichas listas para WhatsApp + catálogo visual homogéneo</div>
+    </div>
+    <div class="arquetipo-card">
+      <div class="arquetipo-tag">Fabricante con 50+ SKUs</div>
+      <h3>Tenés 50 productos o más, y las fotos no alcanzan para todo lo que necesitás comunicar.</h3>
+      <div class="arquetipo-dolor">Fabricás o importás. Tenés fotos de algunos productos, de otros no. Cada vez que sumás algo nuevo, hay que producir todo el material de cero.</div>
+      <div class="arquetipo-recibe"><span>&#10003;</span> Catálogo dinámico + fichas técnicas + fotos adaptadas a todos los formatos</div>
+    </div>
+    <div class="arquetipo-card">
+      <div class="arquetipo-tag">Marca con equipo de ventas</div>
+      <h3>Tu equipo te pide material promocional todas las semanas y no llegás a darles lo que necesitan.</h3>
+      <div class="arquetipo-dolor">Tenés vendedores que necesitan fichas, imágenes actualizadas, listas de precios. Cada cambio implica rehacer todo. Y siempre falta algo.</div>
+      <div class="arquetipo-recibe"><span>&#10003;</span> Material listo por producto, actualizable cuando cambia un dato</div>
+    </div>
+    <div class="arquetipo-card">
+      <div class="arquetipo-tag">Retailer multi-marca</div>
+      <h3>Vendés productos de otros y cada proveedor te manda las fotos como puede.</h3>
+      <div class="arquetipo-dolor">Tu tienda online o tu equipo de ventas muestra productos con fotos inconsistentes. Algunos con fondo blanco, otros con sombra, otros recortados mal.</div>
+      <div class="arquetipo-recibe"><span>&#10003;</span> Imágenes homogéneas con tu identidad + fichas estandarizadas</div>
+    </div>
+  </div>
+</section>
+
+<!-- Qué recibís — Piezas -->
+<section class="piezas">
+  <div class="section-label">Qué recibís</div>
+  <div class="section-title">Material profesional, listo para usar,<br>para cada uno de tus productos.</div>
+  <div class="piezas-grid">
+    <div class="pieza-card">
+      <div class="pieza-icon">&#9998;</div>
+      <h4>Fichas de producto</h4>
+      <p>Con datos técnicos, foto y precio. Listas para mandar por WhatsApp o usar en tu web. Una por producto.</p>
+    </div>
+    <div class="pieza-card">
+      <div class="pieza-icon">&#9776;</div>
+      <h4>Catálogo dinámico y modular</h4>
+      <p>¿Un catálogo por familia? Ningún problema. Además, todos se actualizan cuando cambian los datos. Sumás un producto, se genera. Cambia un precio, se regenera.</p>
+    </div>
+    <div class="pieza-card">
+      <div class="pieza-icon">&#9711;</div>
+      <h4>Tu foto, todos los formatos</h4>
+      <p>1:1 para tu web, 4:5 para el feed, 9:16 para stories. Desde la misma foto original, recortadas y listas.</p>
+    </div>
+    <div class="pieza-card">
+      <div class="pieza-icon">&#9726;</div>
+      <h4>Ambientaciones</h4>
+      <p>Tu producto en un espacio real, sin sesión fotográfica. Pensadas y supervisadas por personas, que escalan gracias a la tecnología para entregar grandes volúmenes en tiempo récord.</p>
+    </div>
+    <div class="pieza-card">
+      <div class="pieza-icon">&#9733;</div>
+      <h4>Piezas para redes</h4>
+      <p>Imágenes individuales por producto, con tu marca, listas para publicar. Feed, stories, carruseles.</p>
+    </div>
+    <div class="pieza-card">
+      <div class="pieza-icon">&#9776;</div>
+      <h4>Listas de precios</h4>
+      <p>Formateadas, con tu identidad, actualizadas. Cambia un número, se regenera la lista completa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Casos reales -->
+<section class="casos">
+  <div class="section-label">Casos reales</div>
+  <div class="section-title">Empresas que ya resolvieron su material con Prismo.</div>
+  <div class="casos-grid">
+    <div class="caso">
+      <div class="caso-rubro">Neumáticos / Automotor</div>
+      <p>Un importador necesitaba que su equipo de ventas pudiera mostrar cada neumático con el vehículo al que aplica. 117 productos, dos enfoques creativos, dos formatos cada uno.</p>
+      <div class="caso-resultado">468 piezas listas en 10 días hábiles.</div>
+      <div class="caso-detalle">
+        <div class="caso-dato"><strong>117</strong> productos</div>
+        <div class="caso-dato"><strong>4</strong> piezas por producto</div>
+        <div class="caso-dato"><strong>2</strong> formatos (Feed + Story)</div>
+      </div>
+    </div>
+    <div class="caso">
+      <div class="caso-rubro">Iluminación / Industria</div>
+      <p>Un fabricante de luminarias necesitaba fichas web con datos técnicos, fotos recortadas en tres formatos y ambientaciones para enriquecer su catálogo completo.</p>
+      <div class="caso-resultado">428 piezas entregadas en dos semanas.</div>
+      <div class="caso-detalle">
+        <div class="caso-dato"><strong>29</strong> familias de producto</div>
+        <div class="caso-dato"><strong>3</strong> formatos por imagen</div>
+        <div class="caso-dato"><strong>+18</strong> ambientaciones</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Cómo funciona -->
@@ -1126,12 +990,12 @@
     <div class="paso">
       <div class="paso-num">1</div>
       <h3>Nos mandás la información de tus productos</h3>
-      <p>Tus fotos, tus precios, tus specs. Lo que ya tenés.</p>
+      <p>Tus fotos, tus precios, tus specs. Lo que ya tenés. No necesitás preparar nada especial.</p>
     </div>
     <div class="paso">
       <div class="paso-num">2</div>
       <h3>Diseñamos el sistema</h3>
-      <p>Configuramos todo para generar el material de cada producto. Una sola vez.</p>
+      <p>Configuramos todo para generar el material de cada producto. Se hace una sola vez. Lo aprovechás cada vez que necesitás generar nuevos materiales de los mismos productos.</p>
     </div>
     <div class="paso">
       <div class="paso-num">3</div>
@@ -1141,201 +1005,55 @@
   </div>
 </section>
 
-<!-- Qué recibís -->
-<section class="que">
-  <div class="section-label">Qué recibís</div>
-  <div class="section-title">Material listo para vender,<br>para cada uno de tus productos.</div>
-  <div class="que-items">
-
-    <!-- Fichas de producto -->
-    <div class="que-item">
-      <div class="que-item-text">
-        <h4>Fichas de producto</h4>
-        <p>Para tu equipo de ventas o tu e-commerce. Datos técnicos, fotos, especificaciones. Todo formateado y listo.</p>
-      </div>
-      <div class="que-item-visual">
-        <div class="ph-ficha">
-          <div class="fi-spectral"></div>
-          <div class="fi-img ph-img"><div class="ph-box" style="width:80px;height:100px;">▢</div></div>
-          <div class="fi-body">
-            <div class="fi-brand">Tu Marca</div>
-            <div class="fi-name">Producto A</div>
-            <div class="fi-specs">
-              <div class="fi-spec"><span class="fl">Material</span><span class="fv">Aluminio</span></div>
-              <div class="fi-spec"><span class="fl">Peso</span><span class="fv">340 g</span></div>
-              <div class="fi-spec"><span class="fl">Medidas</span><span class="fv">12 × 8 cm</span></div>
-              <div class="fi-spec"><span class="fl">Color</span><span class="fv">Blanco</span></div>
-            </div>
-            <div class="fi-price"><span class="cur">$ </span>24.900</div>
-          </div>
-          <div class="fi-mark">PRISMO</div>
-        </div>
-      </div>
+<!-- Verticales -->
+<section class="verticales">
+  <div class="section-label">Industrias</div>
+  <div class="section-title">Si tu empresa pertenece a estos rubros, en 10 días podrías<br>tener lo que tu competencia todavía no.</div>
+  <div class="verticales-grid">
+    <div class="vertical-chip">
+      <h4>Iluminación</h4>
+      <p>Fichas técnicas, recortes y reencuadres de fotografías, ambientaciones generadas con inteligencia artificial que ponen tus productos en contexto.</p>
     </div>
-
-    <!-- Imágenes para redes -->
-    <div class="que-item">
-      <div class="que-item-text">
-        <h4>Imágenes para redes</h4>
-        <p>De cada producto, en todos los formatos. Story, feed, cuadrado. Listas para publicar.</p>
-      </div>
-      <div class="que-item-visual que-redes-visual">
-        <div class="ph-card-social" id="phCardSocial">
-          <div class="pcs-spectral"></div>
-          <div class="pcs-image">
-            <div class="pcs-tag">Tu Marca</div>
-            <div class="ph-img"><div class="ph-box" style="width:70px;height:70px;">▢</div></div>
-          </div>
-          <div class="pcs-bottom">
-            <div class="pcs-slide active" data-idx="0">
-              <div class="pcs-name">Producto A</div>
-              <div class="pcs-desc">Aluminio · Blanco · 12×8 cm</div>
-              <div class="pcs-price"><span class="cur">$ </span>24.900</div>
-            </div>
-            <div class="pcs-slide" data-idx="1">
-              <div class="pcs-name">Producto B</div>
-              <div class="pcs-desc">Acero inox. · Negro · 18×6 cm</div>
-              <div class="pcs-price"><span class="cur">$ </span>31.500</div>
-            </div>
-            <div class="pcs-slide" data-idx="2">
-              <div class="pcs-name">Producto C</div>
-              <div class="pcs-desc">Vidrio templado · Ø16 cm</div>
-              <div class="pcs-price"><span class="cur">$ </span>18.200</div>
-            </div>
-            <div class="pcs-dots">
-              <div class="pcs-dot active" data-dot="0"></div>
-              <div class="pcs-dot" data-dot="1"></div>
-              <div class="pcs-dot" data-dot="2"></div>
-            </div>
-            <span class="pcs-mark">PRISMO</span>
-          </div>
-        </div>
-        <div class="ph-story">
-          <div class="pst-spectral"></div>
-          <div class="pst-brand">Tu Marca</div>
-          <div class="pst-image"><div class="ph-img"><div class="ph-box" style="width:70px;height:85px;border-color:#3A3A3A;color:#555;">▢</div></div></div>
-          <div class="pst-body">
-            <div class="pst-claim">Nuevo.<br>Producto A.</div>
-            <div class="pst-sub">Disponible en 3 colores</div>
-            <span class="pst-cta">Ver más →</span>
-          </div>
-        </div>
-      </div>
+    <div class="vertical-chip">
+      <h4>Neumáticos / Automotor</h4>
+      <p>La información técnica de tus productos nunca fue tan precisa y clara. Salí a hablar del producto que quieras, la información va a ser correcta y va a estar lista en tiempo récord.</p>
     </div>
-
-    <!-- Material para revendedores -->
-    <div class="que-item">
-      <div class="que-item-text">
-        <h4>Material para revendedores</h4>
-        <p>Fichas y cards listas para que tu red de ventas las use directo con el cliente final. Con tu marca, sin que tengan que armar nada.</p>
-      </div>
-      <div class="que-item-visual">
-        <div class="ph-ficha">
-          <div class="fi-spectral"></div>
-          <div class="fi-img ph-img"><div class="ph-box" style="width:80px;height:100px;">▢</div></div>
-          <div class="fi-body">
-            <div class="fi-brand">Tu Marca</div>
-            <div class="fi-name">Producto B</div>
-            <div class="fi-specs">
-              <div class="fi-spec"><span class="fl">Código</span><span class="fv">B-042</span></div>
-              <div class="fi-spec"><span class="fl">Medida</span><span class="fv">18 × 6 cm</span></div>
-              <div class="fi-spec"><span class="fl">Stock</span><span class="fv">Disponible</span></div>
-              <div class="fi-spec"><span class="fl">Color</span><span class="fv">Negro</span></div>
-            </div>
-            <div class="fi-price"><span class="cur">$ </span>31.500</div>
-          </div>
-          <div class="fi-mark">PRISMO</div>
-        </div>
-      </div>
+    <div class="vertical-chip">
+      <h4>Ferretería</h4>
+      <p>Imaginá tus miles de SKUs, ordenados en un sistema por primera vez. Contá tu producto como quieras: catálogos por categoría, por tipo de uso. Piezas visuales para apoyo del proceso de venta.</p>
     </div>
-
-    <!-- Listas de precios -->
-    <div class="que-item">
-      <div class="que-item-text">
-        <h4>Listas de precios</h4>
-        <p>Actualizadas, formateadas, listas para enviar. Cambia un precio, se regenera.</p>
-      </div>
-      <div class="que-item-visual">
-        <div class="ph-price-list" id="phPriceList">
-          <div class="ppl-header">
-            <span class="ppl-brand">Tu Marca</span>
-            <span class="ppl-date">Marzo 2026</span>
-          </div>
-          <div class="ppl-spectral"></div>
-          <table>
-            <thead><tr><th>Producto</th><th>Código</th><th>Precio</th></tr></thead>
-            <tbody>
-              <tr><td>Producto A</td><td class="code">A-001</td><td class="ph-price-anim" data-prices="24.900|25.400|24.900">$ 24.900</td></tr>
-              <tr><td>Producto B</td><td class="code">B-042</td><td class="ph-price-anim" data-prices="31.500|32.100|31.500">$ 31.500</td></tr>
-              <tr><td>Producto C</td><td class="code">C-108</td><td class="ph-price-anim" data-prices="18.200|18.900|18.200">$ 18.200</td></tr>
-              <tr><td>Producto D</td><td class="code">D-220</td><td class="ph-price-anim" data-prices="42.000|43.500|42.000">$ 42.000</td></tr>
-            </tbody>
-          </table>
-          <div class="ppl-footer">
-            <span>Actualizado en tiempo real</span>
-            <span class="ppl-mark">PRISMO</span>
-          </div>
-        </div>
-      </div>
+    <div class="vertical-chip">
+      <h4>Mascotas</h4>
+      <p>Catálogos multimarca que necesitan sintonía fina para fortalecer la marca de tu cadena, franquicia o distribuidora mayorista. Materiales promocionales para tu equipo de ventas. E-cards con información de cada producto para tu sitio web.</p>
     </div>
-
-  </div>
-  <div class="que-footer">
-    Un sistema, no un diseño puntual. Cambia un precio, se actualiza. Sumás un producto, se genera. Sin rehacer nada.
-  </div>
-</section>
-
-<!-- Casos -->
-<section class="casos">
-  <div class="section-label">Casos reales</div>
-  <div class="section-title">Empresas que ya resolvieron su material con Prismo.</div>
-  <div class="casos-grid">
-    <div class="caso">
-      <div class="caso-rubro">Empresa de neumáticos</div>
-      <p>Su fuerza de ventas necesitaba mostrar cada neumático con el vehículo al que aplica. 117 productos, dos enfoques creativos, dos formatos cada uno.</p>
-      <div class="caso-resultado">468 piezas listas en tiempo récord.</div>
+    <div class="vertical-chip">
+      <h4>Decoración / Hogar</h4>
+      <p>Abastecer la demanda de imágenes por rotación estacional y optimizar el branding multi-marca.</p>
     </div>
-    <div class="caso">
-      <div class="caso-rubro">Empresa de iluminación</div>
-      <p>Necesitaban fichas web con datos técnicos, planos y especificaciones para cada luminaria de su catálogo de novedades. 15 familias de producto, 3 formatos de entrega.</p>
-      <div class="caso-resultado">252 piezas entregadas en tiempo récord.</div>
+    <div class="vertical-chip">
+      <h4>Pinturas / Construcción</h4>
+      <p>Fichas técnicas de producto, catálogos por línea y material de apoyo para tu red de distribuidores. Todo con tu identidad, actualizado cuando cambian los datos.</p>
     </div>
   </div>
 </section>
 
-<!-- Para quién -->
-<section class="para-quien">
-  <div class="section-label">Para quién es</div>
-  <div class="section-title">Prismo es para vos si:</div>
-  <div class="checks">
-    <div class="check-item"><span class="check-icon">—</span> Vendés 20 productos o más</div>
-    <div class="check-item"><span class="check-icon">—</span> Necesitás material para vender, mostrar o distribuir</div>
-    <div class="check-item"><span class="check-icon">—</span> Cada vez que algo cambia, alguien tiene que rehacer todo a mano</div>
-    <div class="check-item"><span class="check-icon">—</span> Tu equipo de ventas te pide material y no llegás a darlo</div>
-  </div>
-  <div class="industrias">
-    <strong>Industrias que ya trabajan con Prismo</strong>
-    Neumáticos · Iluminación · Distribuidores B2B · E-commerce · Fabricantes
-  </div>
-</section>
-
-<!-- CTA final -->
-<div class="cta-wrapper">
-<div class="cta-spectral-top"></div>
-<section class="cta-final" id="contacto">
-  <h2>¿Querés probarlo?</h2>
-  <p>Armemos una muestra real con tus productos.</p>
-  <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-    <a href="demo.html" onclick="gtag('event','click_demo',{event_category:'CTA',event_label:'Demo Gratuita'});">Pedí una Demo Gratuita</a>
-    <a href="https://wa.me/5491169765500" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'WhatsApp'});" style="background: var(--snow); color: var(--off-black); border: 1px solid var(--off-black);">Consultanos por WhatsApp</a>
-  </div>
-</section>
+<!-- Demo CTA -->
+<div class="demo-wrapper" id="demo">
+  <div class="demo-spectral-top"></div>
+  <section class="demo">
+    <h2>¿Querés probarlo?</h2>
+    <p>Mandanos 5 productos con sus datos y fotos. Te mostramos cómo se ven resueltos con Prismo. Sin compromiso.</p>
+    <div class="demo-buttons">
+      <a href="demo.html" class="demo-btn-primary" onclick="gtag('event','click_demo',{event_category:'CTA',event_label:'Demo Gratuita'});">Pedí una Demo Gratuita</a>
+      <a href="https://wa.me/5491169765500" class="demo-btn-secondary" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'WhatsApp',utm_source:(_utmParams||{}).utm_source||'',utm_campaign:(_utmParams||{}).utm_campaign||''});">Consultanos por WhatsApp</a>
+    </div>
+  </section>
 </div>
 
-<!-- Formulario de contacto — full width dark -->
+<!-- Formulario de contacto -->
 <div class="contacto-wrapper">
   <div class="contacto-spectral-top"></div>
-  <section class="contacto">
+  <section class="contacto" id="contacto">
     <div class="contacto-inner">
       <div class="contacto-title">¿Te quedan dudas? Escribinos.</div>
       <div class="contacto-sub">Te respondemos en menos de 24 hs.</div>
@@ -1362,7 +1080,7 @@
         <div class="full" style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:8px;">Protegido por reCAPTCHA. <a href="https://policies.google.com/privacy" style="color:rgba(255,255,255,0.35);">Privacidad</a> y <a href="https://policies.google.com/terms" style="color:rgba(255,255,255,0.35);">Términos</a>.</div>
       </form>
       <div class="contacto-success" id="contactSuccess">
-        <div class="cs-check">✓</div>
+        <div class="cs-check">&#10003;</div>
         <div class="cs-msg">Recibido. Te contactamos pronto.</div>
         <div class="cs-sub">Revisá tu mail en las próximas 24 hs.</div>
       </div>
@@ -1378,7 +1096,17 @@ window.addEventListener('scroll', () => {
   navWrapper.classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// Contact form → reCAPTCHA v3 + Make webhook
+// UTM capture
+const _utmParams = {};
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(key) {
+    const val = params.get(key);
+    if (val) _utmParams[key] = val;
+  });
+})();
+
+// Contact form → reCAPTCHA v3 + Make webhook + UTMs
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const form = this;
@@ -1389,7 +1117,6 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
   try {
     const token = await grecaptcha.execute('6LcugZEsAAAAAFCsPhhQaEh75FWEXjSUtKVdmYmF', { action: 'contact' });
-
     await fetch('https://hook.us2.make.com/tbvs3vkgxgxqjf8mgst7e4jibua3fwy8', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1399,48 +1126,29 @@ document.getElementById('contactForm').addEventListener('submit', async function
         email: data.get('email'),
         necesidad: data.get('necesidad'),
         origen: 'prismo.com.ar - formulario contacto',
-        recaptchaToken: token
+        recaptchaToken: token,
+        utm_source: _utmParams.utm_source || '',
+        utm_medium: _utmParams.utm_medium || '',
+        utm_campaign: _utmParams.utm_campaign || '',
+        utm_content: _utmParams.utm_content || '',
+        utm_term: _utmParams.utm_term || '',
+        landing_page: window.location.pathname
       })
     });
   } catch(err) {}
 
-  // GA4 conversion event
-  gtag('event', 'form_contacto_enviado', {event_category: 'Conversion', event_label: data.get('empresa') || 'sin empresa'});
+  gtag('event', 'form_contacto_enviado', {
+    event_category: 'Conversion',
+    event_label: data.get('empresa') || 'sin empresa',
+    utm_source: _utmParams.utm_source || '',
+    utm_campaign: _utmParams.utm_campaign || ''
+  });
 
-  // Show success — hide title and form
   form.style.display = 'none';
   document.querySelector('.contacto-title').style.display = 'none';
   document.querySelector('.contacto-sub').style.display = 'none';
   document.getElementById('contactSuccess').style.display = 'block';
 });
-
-// Card social rotation
-const phSlides = document.querySelectorAll('#phCardSocial .pcs-slide');
-const phDots = document.querySelectorAll('#phCardSocial .pcs-dot');
-let phIdx = 0;
-setInterval(() => {
-  phSlides[phIdx].classList.remove('active');
-  phDots[phIdx].classList.remove('active');
-  phIdx = (phIdx + 1) % phSlides.length;
-  phSlides[phIdx].classList.add('active');
-  phDots[phIdx].classList.add('active');
-}, 2500);
-
-// Price list animation
-const phPrices = document.querySelectorAll('.ph-price-anim');
-let phPriceIdx = 0;
-setInterval(() => {
-  phPriceIdx = (phPriceIdx + 1) % 3;
-  phPrices.forEach(cell => {
-    const prices = cell.dataset.prices.split('|');
-    cell.style.transition = 'opacity 0.3s';
-    cell.style.opacity = '0';
-    setTimeout(() => {
-      cell.textContent = '$ ' + prices[phPriceIdx];
-      cell.style.opacity = '1';
-    }, 300);
-  });
-}, 3500);
 </script>
 </body>
 </html>
