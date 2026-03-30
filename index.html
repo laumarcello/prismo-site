@@ -129,8 +129,8 @@
 
   /* --- Hero --- */
   .hero {
-    padding-top: 80px;
-    padding-bottom: 60px;
+    padding-top: 120px;
+    padding-bottom: 100px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -336,6 +336,21 @@
 
   .hero-cta:hover { opacity: 0.85; }
 
+  /* --- Full-bleed section wrappers --- */
+  .section-snow {
+    background: var(--snow);
+    position: relative;
+  }
+
+  .section-snow > section {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .spectral-divider {
+    height: 3px;
+    background: var(--spectral-full);
+  }
 
   /* --- Arquetipos (Para quién) --- */
   .arquetipos {
@@ -434,16 +449,50 @@
     .piezas-grid { grid-template-columns: 1fr; }
   }
 
-  .pieza-card {
-    background: var(--snow);
-    border: 1px solid var(--warm-gray);
-    border-radius: 16px;
-    padding: 28px 24px;
+  /* Flip card container */
+  .pieza-flip-container {
+    perspective: 800px;
+    min-height: 260px;
+  }
+
+  .pieza-flip {
     position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+
+  /* Desktop: hover to flip */
+  @media (hover: hover) {
+    .pieza-flip-container:hover .pieza-flip {
+      transform: rotateY(180deg);
+    }
+  }
+
+  /* Mobile: tap to flip (via JS class) */
+  .pieza-flip.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .pieza-front, .pieza-back {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
     overflow: hidden;
   }
 
-  .pieza-card::before {
+  /* Front face */
+  .pieza-front {
+    background: var(--snow);
+    border: 1px solid var(--warm-gray);
+    padding: 28px 24px;
+  }
+
+  .pieza-front::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -455,27 +504,261 @@
   .pieza-icon {
     width: 48px;
     height: 48px;
-    background: var(--warm-gray);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
     margin-bottom: 16px;
   }
 
-  .pieza-card h4 {
+  .pieza-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.55;
+  }
+
+  .pieza-front h4 {
     font-weight: 800;
     font-size: 17px;
     color: var(--off-black);
     margin-bottom: 8px;
   }
 
-  .pieza-card p {
+  .pieza-front p {
     font-size: 14px;
     color: var(--mid-gray);
     line-height: 1.6;
   }
+
+  .pieza-hint {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--stone);
+    letter-spacing: 0.5px;
+  }
+
+  /* Back face — wireframe mockup */
+  .pieza-back {
+    background: var(--off-black);
+    border: 1px solid rgba(255,255,255,0.08);
+    transform: rotateY(180deg);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pieza-back::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--spectral-full);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .pieza-back-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--stone);
+    margin-bottom: 12px;
+  }
+
+  .pieza-back-title {
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--off-white);
+    margin-bottom: 16px;
+  }
+
+  /* Wireframe building blocks */
+  .wf-block {
+    height: 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+
+  .wf-w100 { width: 100%; }
+  .wf-w80 { width: 80%; }
+  .wf-w60 { width: 60%; }
+  .wf-w40 { width: 40%; }
+  .wf-light { background: rgba(255,255,255,0.12); }
+  .wf-accent { background: rgba(255,255,255,0.25); }
+  .wf-spectral { background: var(--spectral-cool); height: 3px; margin-bottom: 8px; }
+
+  .wf-photo {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .wf-photo-square {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+
+  .wf-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    align-items: flex-start;
+  }
+
+  .wf-col { flex: 1; }
+
+  .wf-table-row {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 3px;
+  }
+
+  .wf-table-cell {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+  }
+
+  .wf-table-header .wf-table-cell {
+    background: rgba(255,255,255,0.18);
+    height: 7px;
+  }
+
+  .wf-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .wf-grid-2x2 .wf-photo-square {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  /* Product images in wireframes */
+  .wf-product-img {
+    width: 100%; height: 100%;
+    object-fit: contain; padding: 4px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+  }
+
+  .wf-product-square {
+    width: 64px; height: 64px;
+    background: rgba(255,255,255,0.06); border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wf-product-square img {
+    width: 52px; height: 52px; object-fit: contain;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+  }
+
+  /* Data fields grid (2 cols) */
+  .wf-fields {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px 12px; margin-top: 4px;
+  }
+  .wf-field-label {
+    height: 5px; width: 60%; border-radius: 2px;
+    background: rgba(255,255,255,0.2); margin-bottom: 3px;
+  }
+  .wf-field-value {
+    height: 7px; width: 85%; border-radius: 3px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* Catalog covers */
+  .wf-cover {
+    background: var(--snow); border-radius: 6px;
+    padding: 8px; display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+    border: 1px solid var(--warm-gray);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .wf-cover img {
+    width: 48px; height: 48px; object-fit: contain;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.15));
+  }
+  .wf-cover-title {
+    height: 5px; width: 70%; border-radius: 2px;
+    background: var(--warm-gray);
+  }
+  .wf-covers-row {
+    display: flex; gap: 8px; justify-content: center;
+  }
+
+  /* Format boxes with product */
+  .wf-format-box {
+    background: rgba(255,255,255,0.06); border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .wf-format-box img {
+    width: 60%; height: auto; object-fit: contain;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.3));
+  }
+  .wf-format-label {
+    font-size: 9px; color: var(--stone); font-weight: 600;
+    position: absolute; bottom: 4px; right: 6px;
+  }
+
+  /* Ambientación */
+  .wf-ambientacion {
+    width: 100%; aspect-ratio: 4/3;
+    border-radius: 6px; margin-bottom: 10px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wf-ambientacion img.wf-amb-product {
+    position: relative; z-index: 1;
+    width: 50%; object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  }
+
+  /* Mini feed cards */
+  .wf-feed-card {
+    background: rgba(255,255,255,0.06); border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 6px; display: flex; flex-direction: column;
+    aspect-ratio: 4/5; overflow: hidden;
+  }
+  .wf-feed-card-img {
+    flex: 1; background: rgba(255,255,255,0.05);
+    border-radius: 4px; margin-bottom: 5px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wf-feed-card-img img {
+    width: 60%; object-fit: contain;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+  }
+
+  /* Price list rows with photo */
+  .wf-price-row {
+    display: flex; gap: 6px; margin-bottom: 4px; align-items: center;
+  }
+  .wf-price-photo {
+    width: 20px; height: 20px; border-radius: 3px;
+    background: rgba(255,255,255,0.06); overflow: hidden;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  }
+  .wf-price-photo img { width: 16px; height: 16px; object-fit: contain; }
+  .wf-price-cells { flex: 1; display: flex; gap: 4px; }
+  .wf-price-cell { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 2px; }
+  .wf-price-header .wf-price-cell { background: rgba(255,255,255,0.18); height: 7px; }
 
 
   /* --- Casos --- */
@@ -885,72 +1168,234 @@
      "10 días promedio" se conserva integrado en los casos reales. -->
 
 <!-- Para quién es — Arquetipos -->
-<section class="arquetipos">
-  <div class="section-label">Para quién es</div>
-  <div class="section-title">Prismo es para vos si:</div>
-  <div class="arquetipos-grid">
-    <div class="arquetipo-card">
-      <div class="arquetipo-tag">Distribuidor / Mayorista</div>
-      <h3>Tus vendedores y clientes necesitan imágenes promocionales y no tenés cómo abastecer a todos.</h3>
-      <div class="arquetipo-dolor">Vendés productos de muchas marcas. Cada una te manda imágenes distintas, en calidad distinta, o directamente no te manda. Tu equipo comercial improvisa.</div>
-      <div class="arquetipo-recibe"><span>&#10003;</span> Fichas listas para WhatsApp + catálogo visual homogéneo</div>
+<div class="section-snow">
+  <div class="spectral-divider"></div>
+  <section class="arquetipos">
+    <div class="section-label">Para quién es</div>
+    <div class="section-title">Prismo es para vos si:</div>
+    <div class="arquetipos-grid">
+      <div class="arquetipo-card">
+        <div class="arquetipo-tag">Distribuidor / Mayorista</div>
+        <h3>Tus vendedores y clientes necesitan imágenes promocionales y no tenés cómo abastecer a todos.</h3>
+        <div class="arquetipo-dolor">Vendés productos de muchas marcas. Cada una te manda imágenes distintas, en calidad distinta, o directamente no te manda. Tu equipo comercial improvisa.</div>
+        <div class="arquetipo-recibe"><span>&#10003;</span> Fichas listas para WhatsApp + catálogo visual homogéneo</div>
+      </div>
+      <div class="arquetipo-card">
+        <div class="arquetipo-tag">Fabricante con 50+ SKUs</div>
+        <h3>Tenés 50 productos o más, y las fotos no alcanzan para todo lo que necesitás comunicar.</h3>
+        <div class="arquetipo-dolor">Fabricás o importás. Tenés las fotos, pero no el material que necesitás para vender. Cada vez que sumás algo nuevo, hay que producir todo el material de cero.</div>
+        <div class="arquetipo-recibe"><span>&#10003;</span> Catálogo dinámico + fichas técnicas + fotos adaptadas a todos los formatos</div>
+      </div>
+      <div class="arquetipo-card">
+        <div class="arquetipo-tag">Marca con equipo de ventas</div>
+        <h3>Tu equipo te pide material promocional todas las semanas y no llegás a darles lo que necesitan.</h3>
+        <div class="arquetipo-dolor">Tenés vendedores que necesitan fichas, imágenes actualizadas, listas de precios. Cada cambio implica rehacer todo. Y siempre falta algo.</div>
+        <div class="arquetipo-recibe"><span>&#10003;</span> Material listo por producto, actualizable cuando cambia un dato</div>
+      </div>
+      <div class="arquetipo-card">
+        <div class="arquetipo-tag">Retailer multi-marca</div>
+        <h3>Vendés productos de otros y cada proveedor te manda las fotos como puede.</h3>
+        <div class="arquetipo-dolor">Tu tienda online o tu equipo de ventas muestra productos con fotos inconsistentes. Algunos con fondo blanco, otros con sombra, otros recortados mal.</div>
+        <div class="arquetipo-recibe"><span>&#10003;</span> Imágenes homogéneas con tu identidad + fichas estandarizadas</div>
+      </div>
     </div>
-    <div class="arquetipo-card">
-      <div class="arquetipo-tag">Fabricante con 50+ SKUs</div>
-      <h3>Tenés 50 productos o más, y las fotos no alcanzan para todo lo que necesitás comunicar.</h3>
-      <div class="arquetipo-dolor">Fabricás o importás. Tenés las fotos, pero no el material que necesitás para vender. Cada vez que sumás algo nuevo, hay que producir todo el material de cero.</div>
-      <div class="arquetipo-recibe"><span>&#10003;</span> Catálogo dinámico + fichas técnicas + fotos adaptadas a todos los formatos</div>
-    </div>
-    <div class="arquetipo-card">
-      <div class="arquetipo-tag">Marca con equipo de ventas</div>
-      <h3>Tu equipo te pide material promocional todas las semanas y no llegás a darles lo que necesitan.</h3>
-      <div class="arquetipo-dolor">Tenés vendedores que necesitan fichas, imágenes actualizadas, listas de precios. Cada cambio implica rehacer todo. Y siempre falta algo.</div>
-      <div class="arquetipo-recibe"><span>&#10003;</span> Material listo por producto, actualizable cuando cambia un dato</div>
-    </div>
-    <div class="arquetipo-card">
-      <div class="arquetipo-tag">Retailer multi-marca</div>
-      <h3>Vendés productos de otros y cada proveedor te manda las fotos como puede.</h3>
-      <div class="arquetipo-dolor">Tu tienda online o tu equipo de ventas muestra productos con fotos inconsistentes. Algunos con fondo blanco, otros con sombra, otros recortados mal.</div>
-      <div class="arquetipo-recibe"><span>&#10003;</span> Imágenes homogéneas con tu identidad + fichas estandarizadas</div>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
-<!-- Qué recibís — Piezas -->
+<!-- Qué recibís — Piezas (flip cards) -->
 <section class="piezas">
   <div class="section-label">Qué recibís</div>
   <div class="section-title">Material profesional, listo para usar,<br>para cada uno de tus productos.</div>
   <div class="piezas-grid">
-    <div class="pieza-card">
-      <div class="pieza-icon">&#9998;</div>
-      <h4>Fichas de producto</h4>
-      <p>Con datos técnicos, foto y precio. Listas para mandar por WhatsApp o usar en tu web. Una por producto.</p>
+
+    <!-- 1. Fichas de producto -->
+    <div class="pieza-flip-container">
+      <div class="pieza-flip">
+        <div class="pieza-front">
+          <div class="pieza-icon"><img src="../Branding/Assets/Icons/ficha tecnica.svg" alt="Ficha"></div>
+          <h4>Fichas de producto</h4>
+          <p>Con datos técnicos, foto y precio. Listas para mandar por WhatsApp o usar en tu web. Una por producto.</p>
+          <span class="pieza-hint">Ver ejemplo &#8594;</span>
+        </div>
+        <div class="pieza-back">
+          <div class="pieza-back-title">Ficha de producto</div>
+          <div style="display:flex;gap:12px;margin-bottom:12px;">
+            <div class="wf-product-square">
+              <img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Food Bag.png" alt="">
+            </div>
+            <div style="flex:1;">
+              <div class="wf-block wf-w80 wf-accent"></div>
+              <div class="wf-block wf-w60 wf-light"></div>
+            </div>
+          </div>
+          <div class="wf-spectral"></div>
+          <div class="wf-fields">
+            <div><div class="wf-field-label"></div><div class="wf-field-value"></div></div>
+            <div><div class="wf-field-label"></div><div class="wf-field-value"></div></div>
+            <div><div class="wf-field-label"></div><div class="wf-field-value"></div></div>
+            <div><div class="wf-field-label"></div><div class="wf-field-value"></div></div>
+          </div>
+          <div style="margin-top:auto;padding-top:12px;">
+            <div class="wf-block wf-w40 wf-accent" style="height:12px;"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="pieza-card">
-      <div class="pieza-icon">&#9776;</div>
-      <h4>Catálogo dinámico y modular</h4>
-      <p>¿Un catálogo por familia? Ningún problema. Además, todos se actualizan cuando cambian los datos. Sumás un producto, se genera. Cambia un precio, se regenera.</p>
+
+    <!-- 2. Catálogo dinámico -->
+    <div class="pieza-flip-container">
+      <div class="pieza-flip">
+        <div class="pieza-front">
+          <div class="pieza-icon"><img src="../Branding/Assets/Icons/catalogo.svg" alt="Catálogo"></div>
+          <h4>Catálogo dinámico y modular</h4>
+          <p>¿Un catálogo por familia? Ningún problema. Además, todos se actualizan cuando cambian los datos. Sumás un producto, se genera. Cambia un precio, se regenera.</p>
+          <span class="pieza-hint">Ver ejemplo &#8594;</span>
+        </div>
+        <div class="pieza-back">
+          <div class="pieza-back-title">Catálogo por familia</div>
+          <div style="display:flex;align-items:flex-end;gap:8px;margin-top:auto;flex:1;">
+            <div class="wf-cover" style="flex:1;aspect-ratio:3/4;justify-content:center;">
+              <img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Food Bag.png" alt="" style="width:56px;height:56px;">
+              <div class="wf-cover-title"></div>
+            </div>
+            <div class="wf-cover" style="flex:1;aspect-ratio:3/4;justify-content:center;">
+              <img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Bowl.png" alt="" style="width:56px;height:56px;">
+              <div class="wf-cover-title"></div>
+            </div>
+            <div class="wf-cover" style="flex:1;aspect-ratio:3/4;justify-content:center;">
+              <img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Collar.png" alt="" style="width:56px;height:56px;">
+              <div class="wf-cover-title"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="pieza-card">
-      <div class="pieza-icon">&#9711;</div>
-      <h4>Tu foto, todos los formatos</h4>
-      <p>1:1 para tu web, 4:5 para el feed, 9:16 para stories. Desde la misma foto original, recortadas y listas.</p>
+
+    <!-- 3. Foto multi-formato -->
+    <div class="pieza-flip-container">
+      <div class="pieza-flip">
+        <div class="pieza-front">
+          <div class="pieza-icon"><img src="../Branding/Assets/Icons/Foto Multiformato.svg" alt="Formatos"></div>
+          <h4>Tu foto, todos los formatos</h4>
+          <p>1:1 para tu web, 4:5 para el feed, 9:16 para stories. Desde la misma foto original, recortadas y listas.</p>
+          <span class="pieza-hint">Ver ejemplo &#8594;</span>
+        </div>
+        <div class="pieza-back">
+          <div class="pieza-back-title">3 formatos, 1 foto</div>
+          <div style="display:flex;align-items:flex-end;gap:10px;margin-top:8px;flex:1;">
+            <div class="wf-format-box" style="flex:1;aspect-ratio:1;">
+              <img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Bowl.png" alt="">
+              <span class="wf-format-label">1:1</span>
+            </div>
+            <div class="wf-format-box" style="flex:0.8;aspect-ratio:4/5;">
+              <img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Bowl.png" alt="">
+              <span class="wf-format-label">4:5</span>
+            </div>
+            <div class="wf-format-box" style="flex:0.55;aspect-ratio:9/16;">
+              <img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Bowl.png" alt="">
+              <span class="wf-format-label">9:16</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="pieza-card">
-      <div class="pieza-icon">&#9726;</div>
-      <h4>Ambientaciones</h4>
-      <p>Tu producto en un espacio real, sin sesión fotográfica. Pensadas y supervisadas por personas, que escalan gracias a la tecnología para entregar grandes volúmenes en tiempo récord.</p>
+
+    <!-- 4. Ambientaciones -->
+    <div class="pieza-flip-container">
+      <div class="pieza-flip">
+        <div class="pieza-front">
+          <div class="pieza-icon"><img src="../Branding/Assets/Icons/Ambientaciones.svg" alt="Ambientaciones"></div>
+          <h4>Ambientaciones</h4>
+          <p>Tu producto en un espacio real, sin sesión fotográfica. Pensadas y supervisadas por personas, que escalan gracias a la tecnología para entregar grandes volúmenes en tiempo récord.</p>
+          <span class="pieza-hint">Ver ejemplo &#8594;</span>
+        </div>
+        <div class="pieza-back">
+          <div class="pieza-back-title">Ambientación de producto</div>
+          <div class="wf-ambientacion" style="background:linear-gradient(145deg, #E4A0B4 0%, #E8C4A0 18%, #D4D8A0 34%, #A0D4B8 50%, #A0BCD8 66%, #A8A0D8 82%, #CCA0D4 100%);">
+            <img class="wf-amb-product" src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Food Bag.png" alt="">
+          </div>
+          <div class="wf-block wf-w80 wf-light"></div>
+          <div class="wf-block wf-w60 wf-light"></div>
+        </div>
+      </div>
     </div>
-    <div class="pieza-card">
-      <div class="pieza-icon">&#9733;</div>
-      <h4>Piezas para redes</h4>
-      <p>Imágenes individuales por producto, con tu marca, listas para publicar. Feed, stories, carruseles.</p>
+
+    <!-- 5. Piezas para redes -->
+    <div class="pieza-flip-container">
+      <div class="pieza-flip">
+        <div class="pieza-front">
+          <div class="pieza-icon"><img src="../Branding/Assets/Icons/Social media.svg" alt="Redes"></div>
+          <h4>Piezas para redes</h4>
+          <p>Imágenes individuales por producto, con tu marca, listas para publicar. Feed, stories, carruseles.</p>
+          <span class="pieza-hint">Ver ejemplo &#8594;</span>
+        </div>
+        <div class="pieza-back">
+          <div class="pieza-back-title">Cards para feed</div>
+          <div style="display:flex;gap:6px;flex:1;">
+            <div class="wf-feed-card">
+              <div class="wf-feed-card-img"><img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Food Bag.png" alt=""></div>
+              <div class="wf-block wf-w80 wf-accent" style="margin-bottom:3px;height:5px;"></div>
+              <div class="wf-block wf-w60 wf-light" style="margin-bottom:3px;height:4px;"></div>
+              <div class="wf-block wf-w40 wf-accent" style="height:6px;margin-bottom:0;"></div>
+            </div>
+            <div class="wf-feed-card">
+              <div class="wf-feed-card-img"><img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Bowl.png" alt=""></div>
+              <div class="wf-block wf-w80 wf-accent" style="margin-bottom:3px;height:5px;"></div>
+              <div class="wf-block wf-w60 wf-light" style="margin-bottom:3px;height:4px;"></div>
+              <div class="wf-block wf-w40 wf-accent" style="height:6px;margin-bottom:0;"></div>
+            </div>
+            <div class="wf-feed-card">
+              <div class="wf-feed-card-img"><img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Collar.png" alt=""></div>
+              <div class="wf-block wf-w80 wf-accent" style="margin-bottom:3px;height:5px;"></div>
+              <div class="wf-block wf-w60 wf-light" style="margin-bottom:3px;height:4px;"></div>
+              <div class="wf-block wf-w40 wf-accent" style="height:6px;margin-bottom:0;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="pieza-card">
-      <div class="pieza-icon">&#9776;</div>
-      <h4>Listas de precios</h4>
-      <p>Formateadas, con tu identidad, actualizadas. Cambia un número, se regenera la lista completa.</p>
+
+    <!-- 6. Listas de precios -->
+    <div class="pieza-flip-container">
+      <div class="pieza-flip">
+        <div class="pieza-front">
+          <div class="pieza-icon"><img src="../Branding/Assets/Icons/Price list.svg" alt="Precios"></div>
+          <h4>Listas de precios</h4>
+          <p>Formateadas, con tu identidad, actualizadas. Cambia un número, se regenera la lista completa.</p>
+          <span class="pieza-hint">Ver ejemplo &#8594;</span>
+        </div>
+        <div class="pieza-back">
+          <div class="pieza-back-title">Lista de precios</div>
+          <div class="wf-block wf-w60 wf-accent"></div>
+          <div class="wf-spectral"></div>
+          <div class="wf-price-row wf-price-header">
+            <div class="wf-price-photo" style="background:transparent;"></div>
+            <div class="wf-price-cells"><div class="wf-price-cell"></div><div class="wf-price-cell"></div><div class="wf-price-cell" style="flex:0.6;"></div></div>
+          </div>
+          <div class="wf-price-row">
+            <div class="wf-price-photo"><img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Food Bag.png" alt=""></div>
+            <div class="wf-price-cells"><div class="wf-price-cell"></div><div class="wf-price-cell"></div><div class="wf-price-cell" style="flex:0.6;"></div></div>
+          </div>
+          <div class="wf-price-row">
+            <div class="wf-price-photo"><img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Bowl.png" alt=""></div>
+            <div class="wf-price-cells"><div class="wf-price-cell"></div><div class="wf-price-cell"></div><div class="wf-price-cell" style="flex:0.6;"></div></div>
+          </div>
+          <div class="wf-price-row">
+            <div class="wf-price-photo"><img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Collar.png" alt=""></div>
+            <div class="wf-price-cells"><div class="wf-price-cell"></div><div class="wf-price-cell"></div><div class="wf-price-cell" style="flex:0.6;"></div></div>
+          </div>
+          <div class="wf-price-row">
+            <div class="wf-price-photo"><img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Bone.png" alt=""></div>
+            <div class="wf-price-cells"><div class="wf-price-cell"></div><div class="wf-price-cell"></div><div class="wf-price-cell" style="flex:0.6;"></div></div>
+          </div>
+          <div class="wf-price-row">
+            <div class="wf-price-photo"><img src="../Branding/Assets/wireframes/Iconos 3D/pet-care-3d-icons-2026-02-24-01-17-41-utc/Pet Bed.png" alt=""></div>
+            <div class="wf-price-cells"><div class="wf-price-cell"></div><div class="wf-price-cell"></div><div class="wf-price-cell" style="flex:0.6;"></div></div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -983,27 +1428,30 @@
 </section>
 
 <!-- Cómo funciona -->
-<section class="como">
-  <div class="section-label">Cómo funciona</div>
-  <div class="section-title">Tres pasos. Sin complicaciones.</div>
-  <div class="pasos">
-    <div class="paso">
-      <div class="paso-num">1</div>
-      <h3>Nos mandás la información de tus productos</h3>
-      <p>Tus fotos, tus precios, tus specs. Lo que ya tenés. No necesitás preparar nada especial.</p>
+<div class="section-snow">
+  <div class="spectral-divider"></div>
+  <section class="como">
+    <div class="section-label">Cómo funciona</div>
+    <div class="section-title">Tres pasos. Sin complicaciones.</div>
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <h3>Nos mandás la información de tus productos</h3>
+        <p>Tus fotos, tus precios, tus specs. Lo que ya tenés. No necesitás preparar nada especial.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <h3>Diseñamos el sistema</h3>
+        <p>Configuramos todo para generar el material de cada producto. Se hace una sola vez. Lo aprovechás cada vez que necesitás generar nuevos materiales de los mismos productos.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <h3>Recibís todo listo</h3>
+        <p>Fichas, imágenes, listas de precios. Profesional, actualizado, listo para usar. Y cada vez que cambia algo, se regenera.</p>
+      </div>
     </div>
-    <div class="paso">
-      <div class="paso-num">2</div>
-      <h3>Diseñamos el sistema</h3>
-      <p>Configuramos todo para generar el material de cada producto. Se hace una sola vez. Lo aprovechás cada vez que necesitás generar nuevos materiales de los mismos productos.</p>
-    </div>
-    <div class="paso">
-      <div class="paso-num">3</div>
-      <h3>Recibís todo listo</h3>
-      <p>Fichas, imágenes, listas de precios. Profesional, actualizado, listo para usar. Y cada vez que cambia algo, se regenera.</p>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <!-- Verticales -->
 <section class="verticales">
@@ -1105,6 +1553,21 @@ const _utmParams = {};
     if (val) _utmParams[key] = val;
   });
 })();
+
+// Flip cards: tap to flip on touch devices
+document.querySelectorAll('.pieza-flip-container').forEach(container => {
+  container.addEventListener('click', function(e) {
+    // Only apply tap behavior on touch devices (no hover)
+    if (!window.matchMedia('(hover: hover)').matches) {
+      const flip = this.querySelector('.pieza-flip');
+      // Close any other open cards
+      document.querySelectorAll('.pieza-flip.flipped').forEach(other => {
+        if (other !== flip) other.classList.remove('flipped');
+      });
+      flip.classList.toggle('flipped');
+    }
+  });
+});
 
 // Contact form → reCAPTCHA v3 + Make webhook + UTMs
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
