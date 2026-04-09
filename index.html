@@ -850,59 +850,178 @@
     margin-bottom: 2px;
   }
 
-  /* --- Cómo funciona --- */
-  .como {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-
-  .pasos {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 32px;
-  }
-
-  @media (max-width: 700px) {
-    .pasos { grid-template-columns: 1fr; }
-  }
-
-  .paso {
-    background: var(--snow);
-    border: 1px solid var(--warm-gray);
-    border-radius: 16px;
-    padding: 32px 24px;
+  /* --- Cómo funciona (dark visual) --- */
+  .section-dark {
+    background: var(--off-black);
     position: relative;
-    overflow: hidden;
+  }
+  .section-dark > section {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-dark .section-label { color: var(--stone); }
+  .section-dark .section-title { color: var(--off-white); }
+
+  .como {
+    padding: 80px 32px;
   }
 
-  .paso::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--spectral-cool);
-    border-radius: 16px 16px 0 0;
+  /* Visual process flow */
+  .process-flow {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 48px;
   }
 
-  .paso-num {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: 40px;
-    color: var(--warm-gray);
-    margin-bottom: 12px;
+  .process-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 28px 24px;
+    flex: 1;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .paso h3 {
-    font-weight: 800;
-    font-size: 18px;
-    margin-bottom: 12px;
-    color: var(--off-black);
+  .process-arrow {
+    color: var(--stone);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
   }
 
-  .paso p {
-    font-size: 15px;
-    color: var(--mid-gray);
-    line-height: 1.6;
+  /* Card 1: Upload zone */
+  .upload-zone {
+    border: 2px dashed rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 24px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .upload-icon { width: 28px; height: 28px; color: var(--stone); }
+  .upload-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--stone);
+  }
+  .upload-files { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .file-chip {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px; color: var(--off-white); font-weight: 500;
+  }
+
+  /* Card 2: Processing */
+  .progress-track {
+    height: 6px; background: rgba(255,255,255,0.08);
+    border-radius: 3px; margin-bottom: 20px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; width: 68%;
+    background: var(--green); border-radius: 3px;
+  }
+  .process-checklist {
+    list-style: none; display: flex;
+    flex-direction: column; gap: 12px;
+  }
+  .process-checklist li {
+    display: flex; align-items: center;
+    gap: 10px; font-size: 13px; color: var(--stone);
+  }
+  .check-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .check-done { background: var(--green); }
+  .check-active { background: #E8C4A0; }
+  .check-pending { background: rgba(255,255,255,0.1); }
+
+  /* Card 3: Output grid */
+  .output-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .output-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; padding: 14px 8px;
+    text-align: center;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 5px;
+  }
+  .output-icon { width: 24px; height: 24px; color: var(--stone); }
+  .output-name {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--stone);
+  }
+  .output-badge {
+    background: var(--green); color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px;
+    line-height: 1.4;
+  }
+
+  /* Step labels */
+  .steps-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px; margin-bottom: 48px;
+  }
+  .step-item { text-align: center; }
+  .step-num {
+    width: 30px; height: 30px;
+    background: var(--green); color: #fff;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; margin-bottom: 12px;
+  }
+  .step-title {
+    font-weight: 800; font-size: 16px;
+    color: var(--off-white); margin-bottom: 4px;
+  }
+  .step-desc {
+    font-size: 13px; color: var(--stone); line-height: 1.5;
+  }
+
+  /* Bottom badges */
+  .como-badges {
+    display: flex; justify-content: center;
+    gap: 48px; padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .como-badge {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .como-badge-icon {
+    width: 40px; height: 40px;
+    background: rgba(74,153,96,0.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--green);
+  }
+  .como-badge-text strong {
+    display: block; font-weight: 800;
+    font-size: 16px; color: var(--off-white);
+  }
+  .como-badge-text span {
+    font-size: 13px; color: var(--stone);
+  }
+
+  @media (max-width: 900px) {
+    .process-flow { flex-direction: column; align-items: center; }
+    .process-card { max-width: 100%; width: 100%; }
+    .process-arrow { transform: rotate(90deg); padding: 12px 0; }
+    .steps-row { grid-template-columns: 1fr; gap: 24px; }
+    .como-badges { flex-direction: column; align-items: center; gap: 20px; }
   }
 
   /* --- Verticales --- */
@@ -1441,26 +1560,107 @@
 </section>
 
 <!-- Cómo funciona -->
-<div class="section-snow">
+<div class="section-dark">
   <div class="spectral-divider"></div>
   <section class="como">
     <div class="section-label">Cómo funciona</div>
     <div class="section-title">Tres pasos. Sin complicaciones.</div>
-    <div class="pasos">
-      <div class="paso">
-        <div class="paso-num">1</div>
-        <h3>Nos mandás la información de tus productos</h3>
-        <p>Tus fotos, tus precios, tus specs. Lo que ya tenés. No necesitás preparar nada especial.</p>
+
+    <div class="process-flow">
+      <!-- Card 1: Input -->
+      <div class="process-card">
+        <div class="upload-zone">
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l8.5 5.5a2 2 0 002 0L22 8"/></svg>
+          <div class="upload-label">Subí tus archivos</div>
+          <div class="upload-files">
+            <div class="file-chip">catalogo.xlsx</div>
+            <div class="file-chip">fotos.zip</div>
+          </div>
+        </div>
       </div>
-      <div class="paso">
-        <div class="paso-num">2</div>
-        <h3>Diseñamos el sistema</h3>
-        <p>Configuramos todo para generar el material de cada producto. Se hace una sola vez. Lo aprovechás cada vez que necesitás generar nuevos materiales de los mismos productos.</p>
+
+      <div class="process-arrow">
+        <svg width="32" height="16" viewBox="0 0 32 16" fill="none"><path d="M0 8h28m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="paso">
-        <div class="paso-num">3</div>
-        <h3>Recibís todo listo</h3>
-        <p>Fichas, imágenes, listas de precios. Profesional, actualizado, listo para usar. Y cada vez que cambia algo, se regenera.</p>
+
+      <!-- Card 2: Processing -->
+      <div class="process-card">
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <ul class="process-checklist">
+          <li><span class="check-dot check-done"></span>Estructura del catálogo</li>
+          <li><span class="check-dot check-done"></span>Templates de diseño</li>
+          <li><span class="check-dot check-active"></span>Generando variantes</li>
+          <li><span class="check-dot check-pending"></span>Exportar formatos</li>
+        </ul>
+      </div>
+
+      <div class="process-arrow">
+        <svg width="32" height="16" viewBox="0 0 32 16" fill="none"><path d="M0 8h28m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <!-- Card 3: Output -->
+      <div class="process-card">
+        <div class="output-grid">
+          <div class="output-item">
+            <svg class="output-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
+            <div class="output-name">Fichas</div>
+            <div class="output-badge">117</div>
+          </div>
+          <div class="output-item">
+            <svg class="output-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+            <div class="output-name">Imágenes</div>
+            <div class="output-badge">468</div>
+          </div>
+          <div class="output-item">
+            <svg class="output-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+            <div class="output-name">Precios</div>
+            <div class="output-badge">1</div>
+          </div>
+          <div class="output-item">
+            <svg class="output-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            <div class="output-name">WhatsApp</div>
+            <div class="output-badge">117</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-title">Mandanos tu info</div>
+        <div class="step-desc">Fotos, precios, specs. Lo que ya tenés.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-title">Diseñamos el sistema</div>
+        <div class="step-desc">Se configura una vez. Lo usás siempre.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-title">Recibí todo listo</div>
+        <div class="step-desc">Profesional, actualizado, listo para usar.</div>
+      </div>
+    </div>
+
+    <div class="como-badges">
+      <div class="como-badge">
+        <div class="como-badge-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
+        </div>
+        <div class="como-badge-text">
+          <strong>10 días hábiles</strong>
+          <span>Tiempo promedio de entrega</span>
+        </div>
+      </div>
+      <div class="como-badge">
+        <div class="como-badge-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+        </div>
+        <div class="como-badge-text">
+          <strong>Actualizable</strong>
+          <span>Cambia un dato, se regenera</span>
+        </div>
       </div>
     </div>
   </section>
