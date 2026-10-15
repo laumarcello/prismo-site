@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior:smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo funciona Prismo</title>
+<meta name="description" content="Las preguntas que más nos hacen, respondidas una por una. Cómo funciona Prismo, el sistema que convierte la foto y la información de cada producto en material de venta.">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TCTQ9231PD"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TCTQ9231PD');</script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   BOCETO v0 — FRIDA 2026-10-14. Copy sin auditar por NATI.
+   Contraste medido: texto secundario = off-black al 78% sobre
+   off-white → 8,0:1 · off-black sobre menta 10,45:1 · sobre
+   lavanda 7,20:1 · sobre rosa 8,28:1 · stone sobre off-black 9,83:1.
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --off-white: #F5F3EF;
+  --snow: #FAFAF8;
+  --warm-gray: #E8E4DE;
+  --stone: #C8C2B8;
+  --off-black: #1A1A1A;
+  --ink-2: rgba(26,26,26,.78);
+  --rosa: #E4A0B4; --melocoton: #E8C4A0; --lima: #D4D8A0; --menta: #A0D4B8;
+  --celeste: #A0BCD8; --lavanda: #A8A0D8; --lila: #CCA0D4;
+  --spectral: linear-gradient(90deg, #E4A0B4 0%, #E8C4A0 18%, #D4D8A0 34%, #A0D4B8 50%, #A0BCD8 66%, #A8A0D8 82%, #CCA0D4 100%);
+}
+html, body { background: var(--off-white); }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--off-black);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+
+/* ---------- Nav ---------- */
+.nav-wrap { position: sticky; top: 0; z-index: 50; background: var(--off-white); transition: box-shadow .3s; }
+.nav-wrap.scrolled { box-shadow: 0 6px 24px rgba(26,26,26,.06); }
+nav { max-width: 1120px; margin: 0 auto; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
+nav img { height: 22px; width: auto; display: block; }
+.btn {
+  display: inline-block; font: 700 15px/1 'Plus Jakarta Sans', sans-serif;
+  color: var(--off-black); text-decoration: none; padding: 12px 20px;
+  border: 1.5px solid var(--off-black); border-radius: 10px; transition: background .2s, color .2s;
+}
+.btn:hover { background: var(--off-black); color: var(--off-white); }
+.btn-solid { background: var(--off-black); color: var(--off-white); padding: 18px 28px; font-size: 17px; }
+.btn-solid:hover { background: #000; }
+.progress { height: 3px; background: var(--warm-gray); }
+.progress i { display: block; height: 100%; width: 0; background: var(--spectral); }
+
+/* ---------- Hero ---------- */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.hero { padding: 72px 0 88px; }
+.eyebrow {
+  font-size: 13px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--off-black); display: inline-flex; align-items: center; gap: 10px;
+}
+.eyebrow::before { content: ""; width: 28px; height: 3px; border-radius: 2px; background: var(--spectral); }
+.hero h1 {
+  font-size: clamp(44px, 9vw, 88px); font-weight: 800; line-height: 1.02; letter-spacing: -0.03em;
+  margin: 20px 0 22px; max-width: 12ch;
+}
+.hero .lead { font-size: clamp(18px, 2.2vw, 22px); line-height: 1.5; color: var(--ink-2); max-width: 34ch; }
+.index { list-style: none; margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; counter-reset: q; }
+.index a {
+  display: flex; gap: 16px; align-items: baseline; text-decoration: none;
+  background: var(--snow); border: 1px solid var(--warm-gray); border-radius: 14px;
+  padding: 18px 20px; font-size: 17px; font-weight: 500; line-height: 1.4;
+  transition: border-color .25s, transform .25s;
+}
+.index a:hover { border-color: var(--lavanda); transform: translateY(-2px); }
+.index b { font-size: 13px; font-weight: 700; letter-spacing: 1px; min-width: 22px; }
+
+/* ---------- Bloques de objeción ---------- */
+.obj { padding: 104px 0; border-top: 1px solid var(--warm-gray); scroll-margin-top: 70px; }
+.obj .wrap {
+  display: grid; grid-template-columns: 5fr 6fr; column-gap: 72px;
+  grid-template-areas: "head stage" "body stage"; align-items: start;
+}
+.obj:nth-of-type(even) .wrap { grid-template-columns: 6fr 5fr; grid-template-areas: "stage head" "stage body"; }
+.obj-head { grid-area: head; align-self: end; }
+.obj-body { grid-area: body; }
+.stage-wrap { grid-area: stage; align-self: center; }
+.num { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; display: flex; align-items: center; gap: 10px; }
+.num::after { content: ""; width: 36px; height: 3px; border-radius: 2px; background: var(--c, var(--lavanda)); }
+.ask {
+  position: relative; display: inline-block; margin: 18px 0 26px;
+  background: var(--snow); border: 1px solid var(--warm-gray);
+  border-radius: 18px 18px 18px 4px; padding: 14px 18px;
+  font-size: 17px; font-weight: 500; line-height: 1.45; font-style: italic; max-width: 40ch;
+}
+.obj h2 { font-size: clamp(32px, 4.2vw, 46px); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; }
+.obj-body p { font-size: 18px; line-height: 1.65; color: var(--ink-2); margin-top: 20px; max-width: 46ch; }
+.quote {
+  margin-top: 28px; background: var(--off-black); color: var(--off-white);
+  border-radius: 16px; padding: 22px 24px; font-size: 18px; line-height: 1.55; font-weight: 500;
+  position: relative; overflow: hidden;
+}
+.quote::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 3px; background: var(--spectral); }
+.quote small { display: block; margin-top: 10px; font-size: 13px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--stone); font-weight: 600; }
+
+/* ---------- Escenario de animación ---------- */
+.stage {
+  --T: 9s;
+  position: relative; width: 100%; aspect-ratio: 4 / 3; container-type: inline-size;
+  background: var(--snow); border: 1px solid var(--warm-gray); border-radius: 22px; overflow: hidden;
+}
+.stage * { animation-duration: var(--T); animation-iteration-count: infinite; animation-fill-mode: both; animation-timing-function: cubic-bezier(.4,0,.2,1); }
+.stage:not(.inview) * { animation-play-state: paused !important; }
+.stage > * { position: absolute; }
+.lab {
+  font-size: clamp(12px, 3.2cqw, 17px); font-weight: 600; line-height: 1.25; color: var(--off-black);
+}
+.pill {
+  display: inline-block; font-size: clamp(12px, 2.9cqw, 15px); font-weight: 700; line-height: 1;
+  padding: .55em .8em; border-radius: 999px; white-space: nowrap;
+}
+.pill.dark { background: var(--off-black); color: var(--off-white); }
+.pill.menta { background: var(--menta); color: var(--off-black); }
+.pill.lav { background: var(--lavanda); color: var(--off-black); }
+svg.prod { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* Pieza genérica (esqueleto de card) */
+.pc {
+  position: absolute; background: #fff; border: 1px solid var(--warm-gray); border-radius: 1.4cqw;
+  overflow: hidden; display: flex; flex-direction: column; padding: 1.8cqw 1.8cqw; gap: 1.1cqw;
+  box-shadow: 0 1cqw 3cqw rgba(26,26,26,.07);
+}
+.pc::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: .7cqw; background: var(--c, var(--spectral)); }
+.pc .im { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+.pc .im img { display: block; max-width: 84%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 .6cqw .8cqw rgba(26,26,26,.12)); }
+.ln { display: block; height: .9cqw; border-radius: 1cqw; background: var(--warm-gray); }
+.ln.k { background: var(--off-black); width: 80%; }
+.ln.s { width: 45%; }
+
+/* ===== 1 · Una persona diseña ===== */
+.st1 { --T: 8s; }
+.tpl { left: 6%; top: 10%; width: 30%; height: 62%; border-radius: 1.4cqw; background: #fff; border: 1px solid var(--warm-gray); }
+.tb { position: absolute; left: 9%; right: 9%; border: .4cqw dashed var(--off-black); border-radius: .8cqw; animation-name: a1tb; }
+.tb1 { top: 6%; height: 12%; animation-delay: .3s; }
+.tb2 { top: 23%; height: 42%; animation-delay: .9s; }
+.tb3 { top: 71%; height: 9%; right: 30%; animation-delay: 1.5s; }
+.tb4 { top: 84%; height: 9%; right: 55%; animation-delay: 2.1s; border-color: var(--lavanda); background: rgba(168,160,216,.25); }
+@keyframes a1tb { 0% { opacity: 0; transform: scale(.85); } 6% { opacity: 1; transform: none; } 92% { opacity: 1; } 100% { opacity: 0; } }
+.cur { width: 4.4cqw; animation-name: a1cur; z-index: 3; }
+@keyframes a1cur {
+  0% { left: 34%; top: 14%; opacity: 0; } 4% { opacity: 1; left: 26%; top: 16%; }
+  12% { left: 28%; top: 36%; } 20% { left: 22%; top: 55%; } 28% { left: 16%; top: 63%; opacity: 1; }
+  36% { left: 16%; top: 63%; opacity: 0; } 100% { opacity: 0; left: 16%; top: 63%; }
+}
+.l1a { left: 6%; top: 78%; width: 32%; animation-name: none; }
+.arr1 { left: 38.5%; top: 37%; width: 6%; animation-name: a1in; }
+.l1b { left: 47%; top: 78%; width: 48%; animation-name: a1in; }
+@keyframes a1in { 0%, 36% { opacity: 0; transform: translateX(-2cqw); } 42%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.st1 .pc { width: 14.5%; height: 30%; animation-name: a1pop; }
+@keyframes a1pop { 0%, 40% { opacity: 0; transform: scale(.6); } 46% { opacity: 1; transform: scale(1.05); } 50%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+
+/* ===== 2 · Producto exacto (capas) ===== */
+.st2 { --T: 11s; }
+.pz { left: 7%; top: 9%; width: 40%; height: 82%; perspective: 110cqw; }
+.pz-in { position: absolute; inset: 0; transform-style: preserve-3d; animation-name: a2tilt; }
+@keyframes a2tilt { 0%, 40% { transform: none; } 50%, 82% { transform: rotateY(-34deg) rotateX(16deg) scale(.84); } 92%, 100% { transform: none; } }
+.ly { position: absolute; inset: 0; border-radius: 1.6cqw; }
+.ly-base { background: #fff; border: 1px solid var(--warm-gray); }
+.ly-bg { overflow: hidden; animation-name: a2bg; background: linear-gradient(160deg, #E8C4A0 0%, #D4D8A0 100%); }
+.ly-bg .floor { position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: rgba(250,250,248,.55); }
+.ly-bg .win { position: absolute; left: 12%; top: 10%; width: 34%; height: 30%; border-radius: 1cqw; background: rgba(250,250,248,.6); }
+.ly-bg .plant { position: absolute; right: 10%; top: 26%; width: 22%; aspect-ratio: 1; border-radius: 50%; background: var(--menta); }
+.ly-bg .pot { position: absolute; right: 15%; top: 46%; width: 12%; height: 14%; border-radius: 0 0 1cqw 1cqw; background: var(--off-black); }
+@keyframes a2bg {
+  0%, 10% { opacity: 0; transform: translateZ(0); } 18%, 40% { opacity: 1; transform: translateZ(0); }
+  50%, 82% { opacity: 1; transform: translateZ(-13cqw); } 92%, 95% { opacity: 1; transform: translateZ(0); } 100% { opacity: 0; transform: translateZ(0); }
+}
+.ly-prod { animation-name: a2prod; border: .35cqw solid var(--warm-gray); background: transparent; }
+.ly-prod .p2 { position: absolute; left: 14%; width: 72%; top: 24%; filter: drop-shadow(0 1cqw 1.4cqw rgba(26,26,26,.18)); }
+@keyframes a2prod { 0%, 10% { border-color: var(--warm-gray); border-style: solid; } 16%, 42% { border-color: transparent; } 50%, 82% { border-color: rgba(26,26,26,.55); border-style: dashed; } 90%, 94% { border-color: transparent; } 100% { border-color: var(--warm-gray); } }
+.ly-data { animation-name: a2data; border: .35cqw dashed transparent; padding: 4cqw; }
+.ly-data .ln { height: 1.4cqw; margin-bottom: 4%; }
+.ly-data .pill { position: absolute; left: 10%; bottom: 7%; }
+@keyframes a2data {
+  0%, 22% { opacity: 0; transform: translateZ(0); border-color: transparent; } 28%, 40% { opacity: 1; transform: translateZ(0); border-color: transparent; }
+  50%, 82% { opacity: 1; transform: translateZ(13cqw); border-color: rgba(26,26,26,.55); } 92%, 95% { opacity: 1; transform: translateZ(0); border-color: transparent; } 100% { opacity: 0; transform: translateZ(0); }
+}
+.ring { animation-name: a2ring; transform-box: fill-box; transform-origin: center; }
+@keyframes a2ring { 0%, 26% { opacity: 0; transform: scale(.5); } 31%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.l2 { left: 55%; width: 41%; display: flex; gap: 2cqw; align-items: center; animation-name: a2lab; }
+.l2 i { flex: none; width: 2.6cqw; height: 2.6cqw; border-radius: 50%; }
+.l2a { top: 18%; } .l2b { top: 45%; animation-delay: .35s; } .l2c { top: 72%; animation-delay: .7s; }
+@keyframes a2lab { 0%, 47% { opacity: 0; transform: translateX(-2cqw); } 53%, 84% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; } }
+.l2z { left: 55%; top: 45%; width: 41%; display: flex; gap: 2cqw; align-items: center; animation-name: a2z; }
+.l2z i { flex: none; width: 2.6cqw; height: 2.6cqw; border-radius: 50%; background: var(--off-black); }
+@keyframes a2z { 0% { opacity: 0; } 3%, 14% { opacity: 1; } 20%, 100% { opacity: 0; } }
+
+/* ===== 3 · El dato de la ficha ===== */
+.st3 { --T: 9s; }
+.fx { left: 5%; top: 11%; width: 46%; background: #fff; border: 1px solid var(--warm-gray); border-radius: 1.4cqw; overflow: hidden; }
+.fx-h { padding: 3.2cqw 3.6cqw 2.4cqw; font-size: clamp(12px, 3cqw, 16px); font-weight: 700; border-bottom: 1px solid var(--warm-gray); }
+.rw { display: flex; justify-content: space-between; gap: 2cqw; padding: 3cqw 3.6cqw; font-size: clamp(12px, 3cqw, 16px); border-bottom: 1px solid var(--warm-gray); }
+.rw:last-child { border-bottom: 0; }
+.rw span:first-child { color: var(--ink-2); font-weight: 500; }
+.rw span:last-child { font-weight: 700; }
+.r1 { animation-name: a3r1; } .r2 { animation-name: a3r2; }
+@keyframes a3r1 { 0%, 8% { background: transparent; } 11%, 27% { background: rgba(168,160,216,.38); } 32%, 100% { background: transparent; } }
+@keyframes a3r2 { 0%, 30% { background: transparent; } 33%, 49% { background: rgba(168,160,216,.38); } 54%, 100% { background: transparent; } }
+.st3 .big { left: 60%; top: 9%; width: 34%; height: 82%; z-index: 2; padding: 3.2cqw; gap: 0; }
+.st3 .big .im { flex: 0 0 34%; }
+.pv { white-space: nowrap; font-size: clamp(13px, 3.6cqw, 20px); font-weight: 800; margin-top: 7%; border-radius: .6cqw; padding: .2em .25em; margin-left: -.25em; width: fit-content; }
+.pv + .pv { margin-top: 3%; }
+.pv1 { animation-name: a3pv1; } .pv2 { animation-name: a3pv2; }
+@keyframes a3pv1 { 0%, 24% { opacity: 0; background: transparent; } 27% { opacity: 1; background: rgba(168,160,216,.38); } 36%, 92% { opacity: 1; background: transparent; } 100% { opacity: 0; } }
+@keyframes a3pv2 { 0%, 46% { opacity: 0; background: transparent; } 49% { opacity: 1; background: rgba(168,160,216,.38); } 58%, 92% { opacity: 1; background: transparent; } 100% { opacity: 0; } }
+.st3 .big .ln { margin-top: auto; }
+.dt { width: 3cqw; height: 3cqw; border-radius: 50%; background: var(--lavanda); border: .5cqw solid var(--off-black); z-index: 3; animation-name: a3dot; }
+@keyframes a3dot {
+  0%, 10% { opacity: 0; left: 44%; top: 36%; } 12% { opacity: 1; left: 44%; top: 36%; }
+  24% { opacity: 1; left: 64%; top: 59%; } 26%, 30% { opacity: 0; left: 64%; top: 59%; }
+  31% { opacity: 0; left: 44%; top: 50%; } 34% { opacity: 1; left: 44%; top: 50%; }
+  46% { opacity: 1; left: 64%; top: 68%; } 48%, 100% { opacity: 0; left: 64%; top: 68%; }
+}
+.st3 .bk { width: 34%; height: 82%; top: 9%; left: 60%; animation-name: a3bk; }
+.bk1 { --o: 2.4cqw; } .bk2 { --o: 4.8cqw; animation-delay: .25s; }
+@keyframes a3bk { 0%, 58% { opacity: 0; transform: none; } 66%, 92% { opacity: 1; transform: translate(var(--o), calc(var(--o) * -1)); } 100% { opacity: 0; transform: none; } }
+.ok3 { left: 5%; top: 80%; animation-name: a3ok; }
+@keyframes a3ok { 0%, 58% { opacity: 0; transform: translateY(1.5cqw); } 64%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+
+/* ===== 4 · Una foto y la información ===== */
+.st4 { --T: 9s; }
+.ph { left: 7%; top: 8%; width: 36%; height: 46%; border-radius: 1.2cqw; overflow: hidden; animation-name: a4ph;
+  background: repeating-linear-gradient(-35deg, #E8E4DE 0 3cqw, #DDD7CE 3cqw 6cqw); box-shadow: 0 1cqw 3cqw rgba(26,26,26,.12); }
+.ph .clean { position: absolute; inset: 0; background: #fff; animation-name: a4clean; }
+.ph .pp { position: absolute; left: 0; right: 0; top: 6%; height: 68%; display: flex; justify-content: center; animation-name: a4pp; }
+@keyframes a4ph { 0%, 16% { transform: rotate(-8deg); } 28%, 94% { transform: none; } 100% { transform: rotate(-8deg); } }
+@keyframes a4clean { 0%, 18% { opacity: 0; } 30%, 94% { opacity: 1; } 100% { opacity: 0; } }
+.ph .pp img { height: 100%; width: auto; filter: drop-shadow(0 .6cqw .8cqw rgba(26,26,26,.15)); }
+@keyframes a4pp { 0%, 16% { transform: rotate(-14deg) translate(-4%, 8%) scale(.9); } 28%, 94% { transform: none; } 100% { transform: rotate(-14deg) translate(-4%, 8%) scale(.9); } }
+.ph .pill { position: absolute; left: 5%; bottom: 6%; }
+.ph .c1 { animation-name: a4c1; } .ph .c2 { animation-name: a4c2; }
+@keyframes a4c1 { 0%, 20% { opacity: 1; } 26%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes a4c2 { 0%, 22% { opacity: 0; } 30%, 94% { opacity: 1; } 100% { opacity: 0; } }
+.inf { left: 7%; top: 60%; width: 36%; background: #fff; border: 1px solid var(--warm-gray); border-radius: 1.2cqw; padding: 2.6cqw 3cqw; }
+.inf .lab { display: block; margin-bottom: 1.6cqw; }
+.inf .ln { margin-top: 1.3cqw; }
+.arr4 { left: 46%; top: 42%; width: 6%; animation-name: a4arr; }
+@keyframes a4arr { 0%, 36% { opacity: 0; transform: translateX(-2cqw); } 42%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.st4 .big { left: 56%; top: 8%; width: 37%; height: 84%; padding: 3.4cqw; gap: 1.8cqw; animation-name: a4big; }
+@keyframes a4big { 0%, 40% { opacity: 0; transform: scale(.92); } 47%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.st4 .big .im { flex: 0 0 44%; }
+.st4 .big .d { animation-name: a4d; }
+.st4 .big .d2 { animation-delay: .3s; } .st4 .big .d3 { animation-delay: .6s; }
+@keyframes a4d { 0%, 52% { opacity: 0; transform: translateX(-3cqw); } 58%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.st4 .big .ln.d { height: 1.2cqw; }
+.st4 .big .ok { margin-top: auto; animation-name: a4ok; }
+@keyframes a4ok { 0%, 64% { opacity: 0; } 70%, 94% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ===== 5 · Del fabricante a tu empresa ===== */
+.st5 { --T: 9s; }
+.c5 { left: 33%; top: 7%; width: 34%; height: 86%; z-index: 3; padding: 0; gap: 0; }
+.c5::before { display: none; }
+.h5 { position: relative; height: 15%; flex: none; }
+.h5 span { position: absolute; inset: 0; display: flex; align-items: center; padding: 0 9%; font-size: clamp(12px, 2.8cqw, 15px); font-weight: 800; letter-spacing: .08em; }
+.h5 .mf { background: var(--warm-gray); color: var(--ink-2); animation-name: a5mf; }
+.h5 .tu { background: var(--off-black); color: var(--off-white); animation-name: a5tu; }
+.h5 .tu::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: .8cqw; background: var(--spectral); }
+@keyframes a5mf { 0%, 20% { opacity: 1; } 26%, 94% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes a5tu { 0%, 20% { clip-path: inset(0 100% 0 0); } 28%, 94% { clip-path: inset(0 0 0 0); } 100% { clip-path: inset(0 0 0 100%); } }
+.c5 .bd { flex: 1; display: flex; flex-direction: column; padding: 3cqw 3cqw 4cqw; gap: 2cqw; min-height: 0; }
+.c5 .im { flex: 1; }
+.c5 .pr { animation-name: a5pr; align-self: flex-start; }
+@keyframes a5pr { 0%, 30% { opacity: 0; transform: scale(.6); } 36% { opacity: 1; transform: scale(1.08); } 40%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.st5 .fm { --c: var(--off-black); animation-name: a5fm; padding: 2cqw 2cqw 7cqw; }
+.st5 .fm .pill { position: absolute; bottom: 5%; left: 7%; }
+.fs { left: 7%; top: 15%; width: 21%; height: 70%; --dx: 12cqw; }
+.fq { left: 72%; top: 9%; width: 21%; height: 28%; --dx: -12cqw; animation-delay: .25s; }
+.fa { left: 72%; top: 45%; width: 21%; height: 40%; --dx: -12cqw; animation-delay: .5s; }
+.st5 .fm .im img { max-width: 72%; }
+@keyframes a5fm { 0%, 44% { opacity: 0; transform: translateX(var(--dx)) scale(.8); } 54%, 92% { opacity: 1; transform: none; } 98%, 100% { opacity: 0; transform: translateX(var(--dx)) scale(.8); } }
+
+/* ===== 6 · Cambia un dato ===== */
+.st6 { --T: 10s; }
+.fd { left: 6%; top: 6%; width: 56%; height: 12%; display: flex; align-items: center; gap: 3cqw; background: #fff; border: 1px solid var(--warm-gray); border-radius: 1.2cqw; padding: 0 3.4cqw; }
+.fd .k { font-size: clamp(12px, 3cqw, 16px); font-weight: 500; color: var(--ink-2); }
+.fd .v { position: relative; flex: 1; height: 62%; border-radius: .8cqw; animation-name: a6v; }
+.fd .v span { position: absolute; left: 2cqw; top: 50%; transform: translateY(-50%); font-size: clamp(12px, 3.2cqw, 17px); font-weight: 800; }
+.fd .v .o { animation-name: a6o; } .fd .v .n { animation-name: a6n; }
+@keyframes a6v { 0%, 16% { background: var(--off-white); } 20%, 34% { background: rgba(168,160,216,.45); } 40%, 100% { background: var(--off-white); } }
+@keyframes a6o { 0%, 17% { opacity: 1; } 19%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes a6n { 0%, 18% { opacity: 0; } 21%, 94% { opacity: 1; } 100% { opacity: 0; } }
+.g6 { left: 6%; top: 24%; width: 56%; height: 70%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2.2cqw; perspective: 80cqw; }
+.g6 .pc { position: relative; padding: 1.4cqw; --c: var(--warm-gray); }
+.g6 .pc .im img { max-width: 80%; max-height: 92%; }
+.g6 .pc.n { animation-name: a6dim; }
+@keyframes a6dim { 0%, 28% { opacity: 1; } 34%, 88% { opacity: .32; } 94%, 100% { opacity: 1; } }
+.g6 .pc.u { animation-name: a6flip; }
+@keyframes a6flip {
+  0%, 28% { transform: none; box-shadow: 0 1cqw 3cqw rgba(26,26,26,.07); }
+  33% { transform: rotateY(90deg); } 38% { transform: none; box-shadow: 0 0 0 .6cqw var(--lavanda); }
+  88% { box-shadow: 0 0 0 .6cqw var(--lavanda); } 94%, 100% { transform: none; box-shadow: 0 1cqw 3cqw rgba(26,26,26,.07); }
+}
+.g6 .pc .pill { position: absolute; left: 50%; bottom: 7%; transform: translateX(-50%); padding: .4em .6em; animation-name: a6pill; }
+@keyframes a6pill { 0%, 34% { opacity: 0; } 38%, 88% { opacity: 1; } 94%, 100% { opacity: 0; } }
+.cnt { left: 67%; width: 29%; animation-name: a6cnt; }
+.cnt b { display: block; font-size: clamp(30px, 10cqw, 56px); font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+.cnt1 { top: 30%; } .cnt2 { top: 60%; animation-delay: .3s; }
+@keyframes a6cnt { 0%, 42% { opacity: 0; transform: translateY(2cqw); } 48%, 88% { opacity: 1; transform: none; } 94%, 100% { opacity: 0; } }
+
+/* ===== 7 · Con tu agencia ===== */
+.st7 { --T: 9s; }
+.ag { left: 5%; top: 9%; width: 30%; height: 62%; background: #fff; border: 1px solid var(--warm-gray); border-radius: 1.4cqw; padding: 3.4cqw; }
+.ag .lab { display: block; }
+.ag .logo { display: flex; align-items: center; gap: 2cqw; margin-top: 5cqw; }
+.ag .logo i:first-child { width: 7cqw; height: 7cqw; border-radius: 50%; background: var(--off-black); }
+.ag .logo i:last-child { width: 9cqw; height: 2cqw; border-radius: 1cqw; background: var(--off-black); }
+.ag .pal { display: flex; gap: 1.6cqw; margin-top: 4cqw; }
+.ag .pal i { width: 4.6cqw; height: 4.6cqw; border-radius: 50%; }
+.ag .aa { font-size: clamp(22px, 8cqw, 44px); font-weight: 800; margin-top: 4cqw; line-height: 1; }
+.fly { width: 4.6cqw; height: 4.6cqw; border-radius: 50%; animation-name: a7fly; z-index: 3; }
+.fly1 { background: var(--rosa); --x0: 13.6%; --x1: 46%; --y0: 41%; --y1: 30%; }
+.fly2 { background: var(--celeste); --x0: 19.4%; --x1: 51%; --y0: 41%; --y1: 30%; animation-delay: .2s; }
+.fly3 { background: var(--off-black); --x0: 25.2%; --x1: 56%; --y0: 41%; --y1: 30%; animation-delay: .4s; }
+@keyframes a7fly { 0%, 12% { opacity: 0; left: var(--x0); top: var(--y0); } 15% { opacity: 1; left: var(--x0); top: var(--y0); } 30% { opacity: 1; left: var(--x1); top: var(--y1); } 34%, 100% { opacity: 0; left: var(--x1); top: var(--y1); } }
+.tp7 { left: 42%; top: 20%; width: 19%; height: 44%; border: .4cqw dashed var(--off-black); border-radius: 1.2cqw; background: #fff; padding: 2.4cqw; display: flex; flex-direction: column; gap: 2cqw; }
+.tp7 .hb { height: 12%; border-radius: .6cqw; background: var(--warm-gray); animation-name: a7hb; }
+@keyframes a7hb { 0%, 30% { background: var(--warm-gray); } 36%, 92% { background: var(--rosa); } 100% { background: var(--warm-gray); } }
+.tp7 .ph7 { flex: 1; border-radius: .6cqw; background: var(--off-white); }
+.tp7 .t7 { height: 8%; width: 70%; border-radius: .6cqw; animation-name: a7t; }
+@keyframes a7t { 0%, 32% { background: var(--warm-gray); } 38%, 92% { background: var(--off-black); } 100% { background: var(--warm-gray); } }
+.tp7 .c7 { height: 8%; width: 40%; border-radius: .6cqw; animation-name: a7c; }
+@keyframes a7c { 0%, 34% { background: var(--warm-gray); } 40%, 92% { background: var(--celeste); } 100% { background: var(--warm-gray); } }
+.arr7 { left: 61.5%; top: 37%; width: 5%; animation-name: a7arr; }
+@keyframes a7arr { 0%, 42% { opacity: 0; } 48%, 92% { opacity: 1; } 100% { opacity: 0; } }
+.st7 .fan { left: 72%; top: 18%; width: 19%; height: 44%; --c: linear-gradient(90deg, var(--rosa), var(--celeste)); animation-name: a7fan; transform-origin: 50% 120%; padding: 2.4cqw; }
+.st7 .fan .im img { max-width: 76%; }
+.fan1 { --r: -14deg; } .fan2 { --r: -7deg; animation-delay: .15s; } .fan3 { --r: 0deg; animation-delay: .3s; } .fan4 { --r: 7deg; animation-delay: .45s; } .fan5 { --r: 14deg; animation-delay: .6s; }
+@keyframes a7fan { 0%, 46% { opacity: 0; transform: rotate(0) translateY(4cqw); } 54%, 92% { opacity: 1; transform: rotate(var(--r)); } 100% { opacity: 0; transform: rotate(0); } }
+.l7a { left: 5%; top: 76%; width: 32%; }
+.l7b { left: 66%; top: 76%; width: 31%; animation-name: a7arr; }
+.l7a b, .l7b b { display: block; font-weight: 800; }
+
+/* ===== 8 · Precio por volumen ===== */
+.st8 { --T: 8s; }
+.ax8 { left: 8%; top: 7%; }
+.base8 { left: 8%; right: 8%; top: 76%; height: .4cqw; background: var(--off-black); border-radius: 1cqw; }
+.bar { bottom: 24%; width: 24%; border-radius: 1.4cqw 1.4cqw 0 0; transform-origin: bottom; }
+.bar1 { left: 15%; height: 56%; background: var(--off-black); animation-name: a8b1; }
+.bar2 { left: 61%; height: 8%; background: linear-gradient(90deg, var(--menta), var(--celeste)); animation-name: a8b2; }
+@keyframes a8b1 { 0%, 4% { transform: scaleY(0); } 18%, 92% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
+@keyframes a8b2 { 0%, 26% { transform: scaleY(0); } 36%, 92% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
+.x8 { top: 80%; width: 34%; text-align: center; }
+.x81 { left: 10%; } .x82 { left: 56%; }
+.x8 small { display: block; font-size: clamp(12px, 2.8cqw, 15px); font-weight: 500; color: var(--ink-2); margin-top: .4em; }
+.seven { left: 57%; top: 36%; animation-name: a8s; text-align: center; width: 32%; }
+.seven .pill { font-size: clamp(13px, 3.6cqw, 19px); }
+.seven svg { display: block; width: 5cqw; margin: 1.6cqw auto 0; }
+@keyframes a8s { 0%, 42% { opacity: 0; transform: translateY(-2cqw); } 50%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.cnt8 { animation-name: a8c; }
+@keyframes a8c { 0%, 10% { opacity: 0; } 16%, 92% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ---------- CTA + footer ---------- */
+.cta { margin: 0 16px; border-radius: 28px; padding: 88px 24px; text-align: center; background: linear-gradient(150deg, #E4A0B4 0%, #E8C4A0 18%, #D4D8A0 34%, #A0D4B8 50%, #A0BCD8 66%, #A8A0D8 82%, #CCA0D4 100%); }
+.cta h2 { font-size: clamp(34px, 5.4vw, 60px); font-weight: 800; line-height: 1.05; letter-spacing: -.02em; max-width: 16ch; margin: 0 auto; }
+.cta h2 { margin-bottom: 34px; }
+.cta p { font-size: 19px; line-height: 1.55; margin: 20px auto 34px; max-width: 34ch; font-weight: 500; }
+footer { padding: 56px 24px 64px; text-align: center; }
+footer img { height: 20px; display: block; margin: 0 auto 10px; }
+footer span { font-size: 13px; color: var(--ink-2); }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 860px) {
+  .hero { padding: 48px 0 64px; }
+  .index { grid-template-columns: 1fr; margin-top: 40px; }
+  .obj { padding: 72px 0; }
+  .obj .wrap, .obj:nth-of-type(even) .wrap { grid-template-columns: 1fr; grid-template-areas: "head" "stage" "body"; }
+  .stage-wrap { margin-top: 28px; }
+  .stage { border-radius: 18px; }
+  .ask { font-size: 16px; margin: 16px 0 20px; }
+  .obj-body p { font-size: 17px; }
+  .quote { font-size: 17px; }
+  .cta { padding: 64px 22px; border-radius: 22px; }
+  .cta p { font-size: 17px; }
+}
+@media (max-width: 400px) { nav { padding: 14px 16px; } .wrap { padding: 0 16px; } .btn { padding: 11px 14px; font-size: 14px; } }
+
+/* Sin movimiento: cada escena queda congelada en su cuadro completo */
+@media (prefers-reduced-motion: reduce) {
+  .stage * { animation-play-state: paused !important; animation-delay: calc(var(--T) * -0.8) !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Productos de muestra (SVG) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="arrow" viewBox="0 0 40 24">
+      <path d="M2 12 H34 M24 3 L36 12 L24 21" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="nav-wrap">
+  <nav>
+    <a href="/" aria-label="Prismo, inicio"><img src="/logo-prismo-light.svg" alt="Prismo"></a>
+    <a href="/#demo" class="btn">Pedí una demo</a>
+  </nav>
+  <div class="progress"><i></i></div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>¿Cómo funciona Prismo?</h1>
+    <p class="lead">Las preguntas que más nos hacen, respondidas una por una.</p>
+    <ol class="index">
+      <li><a href="#q1"><b>01</b>¿Venden imágenes hechas con ChatGPT?</a></li>
+      <li><a href="#q2"><b>02</b>¿La IA me va a deformar el producto?</a></li>
+      <li><a href="#q3"><b>03</b>¿Revisan y corrigen la info de las piezas?</a></li>
+      <li><a href="#q4"><b>04</b>¿Qué necesito tener?</a></li>
+      <li><a href="#q5"><b>05</b>El material me lo manda el fabricante.</a></li>
+      <li><a href="#q6"><b>06</b>¿Y cuando cambie algo?</a></li>
+      <li><a href="#q7"><b>07</b>Ya tengo diseñador o agencia.</a></li>
+      <li><a href="#q8"><b>08</b>¿Cuánto sale?</a></li>
+    </ol>
+  </div>
+</header>
+
+<main>
+
+<!-- 1 -->
+<section class="obj" id="q1" style="--c: var(--rosa)">
+  <div class="wrap">
+    <div class="obj-head">
+      <span class="num">01</span>
+      <p class="ask">¿Venden imágenes hechas con ChatGPT?</p>
+      <h2>No. Una persona diseña. La tecnología multiplica.</h2>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage st1" role="img" aria-label="Una persona dibuja una plantilla de pieza. Después esa misma plantilla aparece aplicada a seis productos distintos.">
+        <div class="tpl"><i class="tb tb1"></i><i class="tb tb2"></i><i class="tb tb3"></i><i class="tb tb4"></i></div>
+        <svg class="cur" viewBox="0 0 20 24"><path d="M2 2 L2 20 L7 15 L11 23 L14 21.5 L10 14 L17 14 Z" fill="#1A1A1A" stroke="#FAFAF8" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <span class="lab l1a">Una persona diseña</span>
+        <svg class="arr1" viewBox="0 0 40 24"><use href="#arrow"/></svg>
+        <div class="pc" style="left:47%;top:10%;animation-delay:0s"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="ln"></span><span class="ln s"></span></div>
+        <div class="pc" style="left:63.5%;top:10%;animation-delay:.2s"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/frasco.webp" alt=""></div><span class="ln"></span><span class="ln s"></span></div>
+        <div class="pc" style="left:80%;top:10%;animation-delay:.4s"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/pote.webp" alt=""></div><span class="ln"></span><span class="ln s"></span></div>
+        <div class="pc" style="left:47%;top:43%;animation-delay:.6s"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/pomo.webp" alt=""></div><span class="ln"></span><span class="ln s"></span></div>
+        <div class="pc" style="left:63.5%;top:43%;animation-delay:.8s"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="ln"></span><span class="ln s"></span></div>
+        <div class="pc" style="left:80%;top:43%;animation-delay:1s"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/frasco.webp" alt=""></div><span class="ln"></span><span class="ln s"></span></div>
+        <span class="lab l1b">La tecnología multiplica</span>
+      </div>
+    </div>
+    <div class="obj-body">
+      <p>Un diseñador arma el sistema de piezas para tus productos. Después, ese mismo diseño se aplica a todos los productos que tengas, con la información de cada uno.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="obj" id="q2" style="--c: var(--melocoton)">
+  <div class="wrap">
+    <div class="obj-head">
+      <span class="num">02</span>
+      <p class="ask">¿La IA me va a deformar el producto?</p>
+      <h2>Tu producto se ve exactamente como es. Siempre.</h2>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage st2" role="img" aria-label="Una pieza se arma en tres capas: la foto real del producto, que no se toca; la ambientación alrededor; y los datos. La pieza gira y se separan las capas para mostrar que el producto sigue siendo la foto original, sin cambios.">
+        <div class="pz"><div class="pz-in">
+                    <div class="ly ly-bg"><i class="floor"></i><i class="win"></i><i class="plant"></i><i class="pot"></i></div>
+          <div class="ly ly-prod">
+            <img class="p2" src="/img/como-funciona/serum.webp" alt="">
+          </div>
+          <div class="ly ly-data"><span class="ln k"></span><span class="ln s" style="background:var(--off-black)"></span></div>
+        </div></div>
+        <span class="lab l2z"><i></i>Tu foto real</span>
+        <span class="lab l2 l2a"><i style="background:var(--melocoton)"></i>Ambientación</span>
+        <span class="lab l2 l2b"><i style="background:var(--off-black)"></i>Tu foto, sin tocar</span>
+        <span class="lab l2 l2c"><i style="background:var(--lavanda)"></i>Tus datos</span>
+      </div>
+    </div>
+    <div class="obj-body">
+      <p>Trabajamos con tus fotos reales. Lo que armamos es todo lo que está alrededor: el contexto, el uso, el beneficio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="obj" id="q3" style="--c: var(--lima)">
+  <div class="wrap">
+    <div class="obj-head">
+      <span class="num">03</span>
+      <p class="ask">¿Revisan y corrigen la info de las piezas?</p>
+      <h2>La pieza dice lo que dice tu información. Ni más ni menos.</h2>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage st3" role="img" aria-label="A la izquierda, la ficha del producto con contenido 30 ml y uso de noche. Cada dato viaja de la ficha a la pieza y aparece igual. Al final, la pieza se multiplica con una marca de revisado una sola vez.">
+        <div class="fx">
+          <div class="fx-h">Ficha del producto</div>
+          <div class="rw r1"><span>Contenido</span><span>30 ml</span></div>
+          <div class="rw r2"><span>Uso</span><span>Noche</span></div>
+          <div class="rw"><span>Piel</span><span>Mixta</span></div>
+        </div>
+        <div class="pc bk bk2"></div>
+        <div class="pc bk bk1"></div>
+        <div class="pc big"><span class="ln k"></span><div class="im" style="margin-top:6%"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="pv pv1">30 ml</span><span class="pv pv2">Uso de noche</span><span class="ln s"></span></div>
+        <i class="dt"></i>
+        <span class="ok3 pill menta">✓ Revisado una vez</span>
+      </div>
+    </div>
+    <div class="obj-body">
+      <p>Las revisiones se hacen sobre el sistema, no pieza por pieza. Después, cada pieza sale con la información de tus productos. Si esa información está bien, eliminás de raíz el tiempo invertido en idas y vueltas de corrección de data.</p>
+      <div class="quote">“Un dato mal puesto en una pieza es un problema legal.”<small>Así nos lo dijo un laboratorio</small></div>
+      <p>Con Prismo, el dato de la pieza es el dato que nos pasaste.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="obj" id="q4" style="--c: var(--menta)">
+  <div class="wrap">
+    <div class="obj-head">
+      <span class="num">04</span>
+      <p class="ask">¿Qué necesito tener?</p>
+      <h2>Lo que necesitás: la información técnica completa y una foto de cada producto.</h2>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage st4" role="img" aria-label="Una foto de producto torcida y con fondo desprolijo se endereza y queda limpia. Junto a la información del producto, se convierte en una pieza lista.">
+        <div class="ph">
+          <i class="clean"></i>
+          <div class="pp"><img src="/img/como-funciona/serum.webp" alt=""></div>
+          <span class="pill dark c1">Tu foto, como venga</span>
+          <span class="pill menta c2">Preparada</span>
+        </div>
+        <div class="inf"><span class="lab">Tu información</span><span class="ln k"></span><span class="ln"></span><span class="ln s"></span></div>
+        <svg class="arr4" viewBox="0 0 40 24"><use href="#arrow"/></svg>
+        <div class="pc big"><span class="ln k d"></span><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="ln d d2"></span><span class="ln s d d3"></span><span class="pill menta ok">✓ Pieza lista</span></div>
+      </div>
+    </div>
+    <div class="obj-body">
+      <p>Las fotos pueden ser tuyas o del fabricante que representás. Profesionales o no. Nosotros las preparamos para que funcionen en el sistema.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="obj" id="q5" style="--c: var(--celeste)">
+  <div class="wrap">
+    <div class="obj-head">
+      <span class="num">05</span>
+      <p class="ask">El material me lo manda el fabricante.</p>
+      <h2>Ese material muestra su producto. El tuyo tiene que mostrar tu empresa.</h2>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage st5" role="img" aria-label="Una pieza con la marca del fabricante cambia a la marca de tu empresa, suma tu precio y se abre en varios formatos: story, post y ficha.">
+        <div class="pc fm fs"><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="pill dark">Story</span></div>
+        <div class="pc fm fq"><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="pill dark">Post</span></div>
+        <div class="pc fm fa"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="ln"></span><span class="pill dark">Ficha</span></div>
+        <div class="pc c5">
+          <div class="h5"><span class="mf">FABRICANTE</span><span class="tu">TU EMPRESA</span></div>
+          <div class="bd"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="pill lav pr">Tu precio</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="obj-body">
+      <p>Tomamos las fotos y la información que te manda el fabricante o la casa central, y las convertimos en piezas con tu marca, tus precios y tus formatos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="obj" id="q6" style="--c: var(--lavanda)">
+  <div class="wrap">
+    <div class="obj-head">
+      <span class="num">06</span>
+      <p class="ask">¿Y cuando cambie algo?</p>
+      <h2>Cambia un dato, se actualizan las piezas donde aparece.</h2>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage st6" role="img" aria-label="En la ficha, el contenido del sérum cambia de 30 a 50 ml. De nueve piezas, solo las tres de ese producto se actualizan. Las otras seis no se tocan.">
+        <div class="fd"><span class="k">Contenido</span><span class="v"><span class="o">30 ml</span><span class="n">50 ml</span></span></div>
+        <div class="g6">
+          <div class="pc n"><div class="im"><img src="/img/como-funciona/pote.webp" alt=""></div></div>
+          <div class="pc u"><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="pill lav">50 ml</span></div>
+          <div class="pc n"><div class="im"><img src="/img/como-funciona/pomo.webp" alt=""></div></div>
+          <div class="pc n"><div class="im"><img src="/img/como-funciona/frasco.webp" alt=""></div></div>
+          <div class="pc n"><div class="im"><img src="/img/como-funciona/pote.webp" alt=""></div></div>
+          <div class="pc u"><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="pill lav">50 ml</span></div>
+          <div class="pc u"><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="pill lav">50 ml</span></div>
+          <div class="pc n"><div class="im"><img src="/img/como-funciona/pomo.webp" alt=""></div></div>
+          <div class="pc n"><div class="im"><img src="/img/como-funciona/frasco.webp" alt=""></div></div>
+        </div>
+        <span class="lab cnt cnt1"><b>3</b>se actualizan</span>
+        <span class="lab cnt cnt2"><b>6</b>no se tocan</span>
+      </div>
+    </div>
+    <div class="obj-body">
+      <p>Packaging nuevo, otro nombre comercial, una presentación más, una fórmula que cambió. Actualizamos la información y volvemos a generar las piezas afectadas. Las demás no se tocan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="obj" id="q7" style="--c: var(--lila)">
+  <div class="wrap">
+    <div class="obj-head">
+      <span class="num">07</span>
+      <p class="ask">Ya tengo diseñador o agencia.</p>
+      <h2>Trabajamos con ellos.</h2>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage st7" role="img" aria-label="Tu agencia aporta la marca: logo, colores y tipografía. Esos elementos pasan a la plantilla, y Prismo la aplica a todos los productos.">
+        <div class="ag">
+          <span class="lab">Tu marca</span>
+          <div class="logo"><i></i><i></i></div>
+          <div class="pal"><i style="background:var(--rosa)"></i><i style="background:var(--celeste)"></i><i style="background:var(--off-black)"></i></div>
+          <div class="aa">Aa</div>
+        </div>
+        <i class="fly fly1"></i><i class="fly fly2"></i><i class="fly fly3"></i>
+        <div class="tp7"><i class="hb"></i><i class="ph7"></i><i class="t7"></i><i class="c7"></i></div>
+        <svg class="arr7" viewBox="0 0 40 24"><use href="#arrow"/></svg>
+        <div class="pc fan fan1"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/pote.webp" alt=""></div><span class="ln s"></span></div>
+        <div class="pc fan fan2"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/frasco.webp" alt=""></div><span class="ln s"></span></div>
+        <div class="pc fan fan3"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="ln s"></span></div>
+        <div class="pc fan fan4"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/pomo.webp" alt=""></div><span class="ln s"></span></div>
+        <div class="pc fan fan5"><span class="ln k"></span><div class="im"><img src="/img/como-funciona/pote.webp" alt=""></div><span class="ln s"></span></div>
+        <span class="lab l7a"><b>Tu agencia</b>marca y comunicación</span>
+        <span class="lab l7b"><b>Prismo</b>material por producto</span>
+      </div>
+    </div>
+    <div class="obj-body">
+      <p>Tu diseñador o tu agencia siguen a cargo de la marca y la comunicación. Nosotros armamos el material por producto. Pueden diseñar las plantillas con las pautas que les damos, o acompañar el diseño que hacemos nosotros.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="obj" id="q8" style="--c: var(--rosa)">
+  <div class="wrap">
+    <div class="obj-head">
+      <span class="num">08</span>
+      <p class="ask">¿Cuánto sale?</p>
+      <h2>Cuantos más productos, menos cuesta cada pieza.</h2>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage st8" role="img" aria-label="Gráfico de costo por pieza. Con 40 productos, la barra es alta. Con 3.000 productos, la barra es siete veces más baja.">
+        <span class="lab ax8">Costo por pieza</span>
+        <i class="base8"></i>
+        <i class="bar bar1"></i>
+        <i class="bar bar2"></i>
+        <span class="lab x8 x81 cnt8">40<small>productos</small></span>
+        <span class="lab x8 x82 cnt8" style="animation-delay:1.6s">3.000<small>productos</small></span>
+        <div class="seven"><span class="pill dark">7 veces menos</span><svg viewBox="0 0 24 30"><path d="M12 2 V26 M4 18 L12 27 L20 18" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+    <div class="obj-body">
+      <p>Funciona como la impresión offset versus la digital: para pocas piezas conviene un diseñador; para cientos o miles, Prismo.</p>
+      <p>Como referencia: con 3.000 productos, cada pieza cuesta siete veces menos que con 40. Con tu cantidad de productos, te decimos el número exacto.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<section class="cta" id="contacto">
+  <h2>¿Charlamos?</h2>
+  <a href="/#demo" class="btn btn-solid">Pedí una demo</a>
+</section>
+
+<footer>
+  <img src="/logo-prismo-light.svg" alt="Prismo">
+  <span>by Contentalia</span>
+</footer>
+
+<script>
+  // Cada escena corre solo mientras se ve en pantalla
+  const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('inview', e.isIntersecting)), { threshold: 0.35 });
+  document.querySelectorAll('.stage').forEach(s => io.observe(s));
+  // Nav y barra de progreso
+  const nav = document.querySelector('.nav-wrap'), bar = document.querySelector('.progress i');
+  addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > 20);
+    const h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (h > 0 ? scrollY / h * 100 : 0) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>
