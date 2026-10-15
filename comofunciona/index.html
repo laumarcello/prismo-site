@@ -225,37 +225,29 @@ svg.prod { display: block; width: 100%; height: auto; overflow: visible; }
 .l2z i { flex: none; width: 2.6cqw; height: 2.6cqw; border-radius: 50%; background: var(--off-black); }
 @keyframes a2z { 0% { opacity: 0; } 3%, 14% { opacity: 1; } 20%, 100% { opacity: 0; } }
 
-/* ===== 3 · El dato de la ficha ===== */
-.st3 { --T: 9s; }
-.fx { left: 5%; top: 11%; width: 46%; background: #fff; border: 1px solid var(--warm-gray); border-radius: 1.4cqw; overflow: hidden; }
-.fx-h { padding: 3.2cqw 3.6cqw 2.4cqw; font-size: clamp(12px, 3cqw, 16px); font-weight: 700; border-bottom: 1px solid var(--warm-gray); }
-.rw { display: flex; justify-content: space-between; gap: 2cqw; padding: 3cqw 3.6cqw; font-size: clamp(12px, 3cqw, 16px); border-bottom: 1px solid var(--warm-gray); }
+/* ===== 3 · El dato de la ficha =====
+   Lo mueve un reloj en JS (ver script al final), como el despiece de Calzetta:
+   se arma la primera pieza y después tabla y pieza cambian a la par, en cascada,
+   con un pulso leve en cada elemento que cambia. */
+.st3 { --x0: 49%; --x1: 62%; --y1: 33%; --y2: 46.3%; --y3: 59.5%; --p1: 56%; --p2: 67%; --p3: 77.2%; }
+.st3 * { animation: none !important; }
+.fx { left: 5%; top: 13%; width: 47%; background: #fff; border: 1px solid var(--warm-gray); border-radius: 1.4cqw; overflow: hidden; }
+.fx-h { padding: 3cqw 3.6cqw 2.4cqw; font-size: clamp(12px, 3cqw, 16px); font-weight: 700; border-bottom: 1px solid var(--warm-gray); }
+.rw { display: flex; justify-content: space-between; align-items: center; gap: 2cqw; padding: 2.8cqw 3.6cqw; font-size: clamp(12px, 3cqw, 16px); border-bottom: 1px solid var(--warm-gray); }
 .rw:last-child { border-bottom: 0; }
-.rw span:first-child { color: var(--ink-2); font-weight: 500; }
-.rw span:last-child { font-weight: 700; }
-.r1 { animation-name: a3r1; } .r2 { animation-name: a3r2; }
-@keyframes a3r1 { 0%, 8% { background: transparent; } 11%, 27% { background: rgba(168,160,216,.38); } 32%, 100% { background: transparent; } }
-@keyframes a3r2 { 0%, 30% { background: transparent; } 33%, 49% { background: rgba(168,160,216,.38); } 54%, 100% { background: transparent; } }
-.st3 .big { left: 60%; top: 9%; width: 34%; height: 82%; z-index: 2; padding: 3.2cqw; gap: 0; }
-.st3 .big .im { flex: 0 0 34%; }
-.pv { white-space: nowrap; font-size: clamp(13px, 3.6cqw, 20px); font-weight: 800; margin-top: 7%; border-radius: .6cqw; padding: .2em .25em; margin-left: -.25em; width: fit-content; }
-.pv + .pv { margin-top: 3%; }
-.pv1 { animation-name: a3pv1; } .pv2 { animation-name: a3pv2; }
-@keyframes a3pv1 { 0%, 24% { opacity: 0; background: transparent; } 27% { opacity: 1; background: rgba(168,160,216,.38); } 36%, 92% { opacity: 1; background: transparent; } 100% { opacity: 0; } }
-@keyframes a3pv2 { 0%, 46% { opacity: 0; background: transparent; } 49% { opacity: 1; background: rgba(168,160,216,.38); } 58%, 92% { opacity: 1; background: transparent; } 100% { opacity: 0; } }
+.rw > span:first-child { color: var(--ink-2); font-weight: 500; }
+.rw > .sw { font-weight: 700; text-align: right; }
+.sw { display: inline-grid; } .sw > * { grid-area: 1 / 1; }
+.st3 .sw > * { opacity: 0; } .st3 .sw > .sa { opacity: 1; }
+.st3 .big { left: 60%; top: 8%; width: 35%; height: 84%; z-index: 2; padding: 3.2cqw; gap: 0; }
+.st3 .big .im { flex: none; height: 19cqw; margin-top: 2.4cqw; position: relative; }
+.st3 .big .im .sw { width: 100%; height: 100%; justify-items: center; align-items: center; }
+.st3 .big .im img { height: 19cqw; max-height: 19cqw; max-width: 100%; width: auto; object-fit: contain; }
+.pv { white-space: nowrap; font-size: clamp(12px, 3.4cqw, 19px); font-weight: 700; margin-top: 2.2cqw; border-radius: .6cqw; padding: .15em .25em; margin-left: -.25em; width: fit-content; transform-origin: left center; }
+.pv.nm { font-size: clamp(14px, 4.4cqw, 24px); font-weight: 800; margin-top: 3cqw; }
 .st3 .big .ln { margin-top: auto; }
-.dt { width: 3cqw; height: 3cqw; border-radius: 50%; background: var(--lavanda); border: .5cqw solid var(--off-black); z-index: 3; animation-name: a3dot; }
-@keyframes a3dot {
-  0%, 10% { opacity: 0; left: 44%; top: 36%; } 12% { opacity: 1; left: 44%; top: 36%; }
-  24% { opacity: 1; left: 64%; top: 59%; } 26%, 30% { opacity: 0; left: 64%; top: 59%; }
-  31% { opacity: 0; left: 44%; top: 50%; } 34% { opacity: 1; left: 44%; top: 50%; }
-  46% { opacity: 1; left: 64%; top: 68%; } 48%, 100% { opacity: 0; left: 64%; top: 68%; }
-}
-.st3 .bk { width: 34%; height: 82%; top: 9%; left: 60%; animation-name: a3bk; }
-.bk1 { --o: 2.4cqw; } .bk2 { --o: 4.8cqw; animation-delay: .25s; }
-@keyframes a3bk { 0%, 58% { opacity: 0; transform: none; } 66%, 92% { opacity: 1; transform: translate(var(--o), calc(var(--o) * -1)); } 100% { opacity: 0; transform: none; } }
-.ok3 { left: 5%; top: 80%; animation-name: a3ok; }
-@keyframes a3ok { 0%, 58% { opacity: 0; transform: translateY(1.5cqw); } 64%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.dt { width: 3cqw; height: 3cqw; margin: -1.5cqw 0 0 -1.5cqw; border-radius: 50%; background: var(--lavanda); border: .5cqw solid var(--off-black); z-index: 3; opacity: 0; }
+.ok3 { left: 5%; top: 82%; opacity: 0; }
 
 /* ===== 4 · Una foto y la información ===== */
 .st4 { --T: 9s; }
@@ -370,24 +362,29 @@ svg.prod { display: block; width: 100%; height: auto; overflow: visible; }
 .l7b { left: 66%; top: 76%; width: 31%; animation-name: a7arr; }
 .l7a b, .l7b b { display: block; font-weight: 800; }
 
-/* ===== 8 · Precio por volumen ===== */
-.st8 { --T: 8s; }
-.ax8 { left: 8%; top: 7%; }
-.base8 { left: 8%; right: 8%; top: 76%; height: .4cqw; background: var(--off-black); border-radius: 1cqw; }
-.bar { bottom: 24%; width: 24%; border-radius: 1.4cqw 1.4cqw 0 0; transform-origin: bottom; }
-.bar1 { left: 15%; height: 56%; background: var(--off-black); animation-name: a8b1; }
-.bar2 { left: 61%; height: 8%; background: linear-gradient(90deg, var(--menta), var(--celeste)); animation-name: a8b2; }
-@keyframes a8b1 { 0%, 4% { transform: scaleY(0); } 18%, 92% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
-@keyframes a8b2 { 0%, 26% { transform: scaleY(0); } 36%, 92% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
-.x8 { top: 80%; width: 34%; text-align: center; }
-.x81 { left: 10%; } .x82 { left: 56%; }
-.x8 small { display: block; font-size: clamp(12px, 2.8cqw, 15px); font-weight: 500; color: var(--ink-2); margin-top: .4em; }
-.seven { left: 57%; top: 36%; animation-name: a8s; text-align: center; width: 32%; }
-.seven .pill { font-size: clamp(13px, 3.6cqw, 19px); }
-.seven svg { display: block; width: 5cqw; margin: 1.6cqw auto 0; }
-@keyframes a8s { 0%, 42% { opacity: 0; transform: translateY(-2cqw); } 50%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-.cnt8 { animation-name: a8c; }
-@keyframes a8c { 0%, 10% { opacity: 0; } 16%, 92% { opacity: 1; } 100% { opacity: 0; } }
+/* ===== 8 · Precio por volumen =====
+   Datos: Prismo/Documentación/calculadora-tokens.html (TIERS vigentes y piso de 200 tokens),
+   7 diseños, 3 variantes por producto. Costo por pieza relativo, sin montos:
+   40 → 11.333 · 100 → 5.145 · 300 → 3.761 · 1.000 → 2.450 · 3.000 → 1.584 ($/pieza, 2026-10-15).
+   Lo mueve un reloj en JS, como la escena 3. */
+.st8 * { animation: none !important; }
+.t8 { font-size: clamp(12px, 3cqw, 16px); font-weight: 700; }
+.t8a { left: 5%; top: 4%; }
+.t8b small, .t8a small { font-weight: 500; color: var(--ink-2); }
+.z8 { left: 4%; right: 4%; height: .3cqw; border-radius: 1cqw; background: rgba(26,26,26,.28); }
+.z8a { top: 66%; }
+svg.l8 { left: 0; top: 0; width: 100%; height: 100%; overflow: visible; }
+.l8 .ar { fill: var(--menta); opacity: .45; }
+.l8 .sg { fill: none; stroke: var(--off-black); stroke-width: 2.4px; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.d8 { width: 2.8cqw; height: 2.8cqw; margin: -1.4cqw 0 0 -1.4cqw; border-radius: 50%; background: var(--off-black); box-shadow: 0 0 0 .6cqw var(--snow); opacity: 0; }
+.d8.last { background: var(--lavanda); border: .45cqw solid var(--off-black); }
+.v8 { transform: translateX(-50%); font-size: clamp(12px, 3cqw, 16px); font-weight: 800; opacity: 0; white-space: nowrap; }
+.s8 { right: 3%; top: 10%; opacity: 0; transform-origin: 80% 100%; }
+.c8 { left: 89%; top: 18.5%; height: 38.0%; width: 0; margin-left: -.15cqw; border-left: .3cqw dashed var(--off-black); opacity: 0; transform-origin: top; }
+.x8 { top: 71%; width: 19%; margin-left: -9.5%; text-align: center; display: flex; flex-direction: column; gap: .3em; font-size: clamp(12px, 2.9cqw, 16px); line-height: 1.1; color: var(--off-black); font-weight: 500; opacity: 0; }
+.x8 b { font-size: clamp(14px, 3.6cqw, 20px); font-weight: 800; }
+.x8 small { align-self: center; margin-top: .25em; font-size: clamp(12px, 2.6cqw, 14px); font-weight: 500; color: var(--ink-2); white-space: nowrap; letter-spacing: -.01em; }
+@container (max-width: 315px) { .x8 small { display: flex; flex-direction: column; align-items: center; gap: .15em; } }
 
 /* ---------- CTA + footer ---------- */
 .cta { margin: 0 16px; border-radius: 28px; padding: 88px 24px; text-align: center; background: linear-gradient(150deg, #E4A0B4 0%, #E8C4A0 18%, #D4D8A0 34%, #A0D4B8 50%, #A0BCD8 66%, #A8A0D8 82%, #CCA0D4 100%); }
@@ -537,16 +534,14 @@ footer span { font-size: 13px; color: var(--ink-2); }
       <h2>La pieza dice lo que dice tu información. Ni más ni menos.</h2>
     </div>
     <div class="stage-wrap">
-      <div class="stage st3" role="img" aria-label="A la izquierda, la ficha del producto con contenido 30 ml y uso de noche. Cada dato viaja de la ficha a la pieza y aparece igual. Al final, la pieza se multiplica con una marca de revisado una sola vez.">
+      <div class="stage st3" role="img" aria-label="Se arma la primera pieza: cada dato de la ficha del producto viaja a la pieza y aparece igual. Después la tabla y la pieza cambian a la par: sérum, crema y gel, siempre con los mismos datos de los dos lados.">
         <div class="fx">
           <div class="fx-h">Ficha del producto</div>
-          <div class="rw r1"><span>Contenido</span><span>30 ml</span></div>
-          <div class="rw r2"><span>Uso</span><span>Noche</span></div>
-          <div class="rw"><span>Piel</span><span>Mixta</span></div>
+          <div class="rw r1"><span>Producto</span><span class="sw"><span class="sa">Sérum</span><span class="sb">Crema</span><span class="sc">Gel</span></span></div>
+          <div class="rw r2"><span>Contenido</span><span class="sw"><span class="sa">30 ml</span><span class="sb">50 g</span><span class="sc">150 ml</span></span></div>
+          <div class="rw r3"><span>Uso</span><span class="sw"><span class="sa">Noche</span><span class="sb">Día</span><span class="sc">Día y noche</span></span></div>
         </div>
-        <div class="pc bk bk2"></div>
-        <div class="pc bk bk1"></div>
-        <div class="pc big"><span class="ln k"></span><div class="im" style="margin-top:6%"><img src="/img/como-funciona/serum.webp" alt=""></div><span class="pv pv1">30 ml</span><span class="pv pv2">Uso de noche</span><span class="ln s"></span></div>
+        <div class="pc big"><span class="ln k"></span><div class="im imw"><span class="sw"><img class="sa" src="/img/como-funciona/serum.webp" alt=""><img class="sb" src="/img/como-funciona/pote.webp" alt=""><img class="sc" src="/img/como-funciona/pomo.webp" alt=""></span></div><span class="pv nm pv1"><span class="sw"><span class="sa">Sérum</span><span class="sb">Crema</span><span class="sc">Gel</span></span></span><span class="pv pv2"><span class="sw"><span class="sa">30 ml</span><span class="sb">50 g</span><span class="sc">150 ml</span></span></span><span class="pv pv3"><span class="sw"><span class="sa">Uso de noche</span><span class="sb">Uso de día</span><span class="sc">Día y noche</span></span></span><span class="ln s"></span></div>
         <i class="dt"></i>
         <span class="ok3 pill menta">✓ Revisado una vez</span>
       </div>
@@ -686,14 +681,16 @@ footer span { font-size: 13px; color: var(--ink-2); }
       <h2>Cuantos más productos, menos cuesta cada pieza.</h2>
     </div>
     <div class="stage-wrap">
-      <div class="stage st8" role="img" aria-label="Gráfico de costo por pieza. Con 40 productos, la barra es alta. Con 3.000 productos, la barra es siete veces más baja.">
-        <span class="lab ax8">Costo por pieza</span>
-        <i class="base8"></i>
-        <i class="bar bar1"></i>
-        <i class="bar bar2"></i>
-        <span class="lab x8 x81 cnt8">40<small>productos</small></span>
-        <span class="lab x8 x82 cnt8" style="animation-delay:1.6s">3.000<small>productos</small></span>
-        <div class="seven"><span class="pill dark">7 veces menos</span><svg viewBox="0 0 24 30"><path d="M12 2 V26 M4 18 L12 27 L20 18" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="stage st8" role="img" aria-label="Costo por pieza según la cantidad de productos, con 3 variantes por producto. 40 productos son 120 piezas; 100 productos, 300 piezas y cada pieza cuesta 2,2 veces menos; 300 productos, 900 piezas y 3 veces menos; 1.000 productos, 3.000 piezas y 4,6 veces menos; 3.000 productos, 9.000 piezas y 7 veces menos.">
+        <span class="t8 t8a">Costo por pieza</span>
+        <i class="z8 z8a"></i>
+        <svg class="l8" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="ar" d="M11,66 L11,14.0 L30.5,42.39 L50,48.74 L69.5,54.76 L89,58.73 L89,66 Z"/><path class="sg" d="M11,14.0 L30.5,42.39 L50,48.74 L69.5,54.76 L89,58.73"/></svg>
+        <i class="d8" style="left:11%;top:14.0%"></i><i class="d8" style="left:30.5%;top:42.39%"></i><i class="d8" style="left:50%;top:48.74%"></i><i class="d8" style="left:69.5%;top:54.76%"></i><i class="d8 last" style="left:89%;top:58.73%"></i><span class="v8" style="left:30.5%;top:33.89%">÷2,2</span><span class="v8" style="left:50%;top:40.24%">÷3</span><span class="v8" style="left:69.5%;top:46.26%">÷4,6</span>
+        <i class="c8"></i><span class="s8 pill dark">7 veces menos</span><span class="x8" style="left:11%"><b>120</b>piezas<small><span>40</span> SKU</small></span><span class="x8" style="left:30.5%"><b>300</b>piezas<small><span>100</span> SKU</small></span><span class="x8" style="left:50%"><b>900</b>piezas<small><span>300</span> SKU</small></span><span class="x8" style="left:69.5%"><b>3.000</b>piezas<small><span>1.000</span> SKU</small></span><span class="x8" style="left:89%"><b>9.000</b>piezas<small><span>3.000</span> SKU</small></span>
+        
+        
+        
+        
       </div>
     </div>
     <div class="obj-body">
@@ -726,6 +723,99 @@ footer span { font-size: 13px; color: var(--ink-2); }
     const h = document.documentElement.scrollHeight - innerHeight;
     bar.style.width = (h > 0 ? scrollY / h * 100 : 0) + '%';
   }, { passive: true });
+
+  // ===== Escena 3: reloj propio (cascada + pulso, como el despiece de Calzetta) =====
+  (() => {
+    const st = document.querySelector('.st3'); if (!st) return;
+    const L = 9.6, SW = [4.0, 5.9], BACK = 9.0, CASC = 0.055, FUND = 0.28;
+    const LAV = '168,160,216';
+    const cl = v => Math.max(0, Math.min(1, v));
+    const ease = v => v < .5 ? 2*v*v : 1 - Math.pow(-2*v + 2, 2) / 2;
+    const pulse = d => (d < 0 || d > .55) ? 0 : Math.sin(Math.PI * d / .55);
+    const rows = [...st.querySelectorAll('.rw.r1, .rw.r2, .rw.r3')];
+    const pvs = [...st.querySelectorAll('.pv1, .pv2, .pv3')];
+    const im = st.querySelector('.imw'), dot = st.querySelector('.dt'), ok = st.querySelector('.ok3');
+    const cs = getComputedStyle(st), V = k => parseFloat(cs.getPropertyValue(k));
+    // orden de la cascada en cada cambio: producto, fila 1, nombre, fila 2, contenido, fila 3, uso
+    const items = [
+      { el: im, o: 0, kind: 'img' },
+      { el: rows[0], o: 1, kind: 'row' }, { el: pvs[0], o: 2, kind: 'pv', i: 0 },
+      { el: rows[1], o: 3, kind: 'row' }, { el: pvs[1], o: 4, kind: 'pv', i: 1 },
+      { el: rows[2], o: 5, kind: 'row' }, { el: pvs[2], o: 6, kind: 'pv', i: 2 },
+    ];
+    const legStart = i => 0.5 + i * 0.85, legEnd = i => legStart(i) + 0.6;
+    const setSw = (el, from, to, a) => { const kids = el.querySelector('.sw').children;
+      [...kids].forEach((k, j) => { k.style.opacity = j === to ? cl(a * 2 - 1) : j === from ? 1 - cl(a * 2) : 0; }); };
+    function render(t) {
+      const out = t < 8.9 ? 1 : cl(1 - (t - 8.9) / 0.4);
+      items.forEach(it => {
+        const sw = it.kind === 'row' ? [...SW, BACK] : SW;
+        const seq = it.kind === 'row' ? [0, 1, 2, 0] : [0, 1, 2];
+        let k = 0; sw.forEach((x, j) => { if (t >= x + it.o * CASC) k = j + 1; });
+        const t0 = k ? sw[k - 1] + it.o * CASC : -9;
+        const a = k ? cl((t - t0) / FUND) : 1;
+        setSw(it.el, seq[Math.max(0, k - 1)], seq[k], a);
+        let p = k && (it.kind !== 'row' || k <= SW.length) ? pulse(t - t0) : 0;
+        if (it.kind === 'row') {
+          const i = rows.indexOf(it.el), hb = t >= legStart(i) && t <= legEnd(i) + .35 ? Math.min(cl((t - legStart(i)) / .15), cl((legEnd(i) + .35 - t) / .25)) : 0;
+          it.el.style.background = `rgba(${LAV},${(Math.max(p, hb) * .26).toFixed(3)})`;
+        } else if (it.kind === 'pv') {
+          const arr = legEnd(it.i), vis = cl((t - arr) / .25);
+          p = Math.max(p, pulse(t - arr));
+          it.el.style.opacity = (vis * out).toFixed(3);
+          it.el.style.background = `rgba(${LAV},${(p * .26).toFixed(3)})`;
+          it.el.style.transform = `scale(${(1 + .04 * p).toFixed(4)})`;
+        } else {
+          p = Math.max(p, pulse(t - .2));
+          it.el.style.opacity = (cl((t - .2) / .3) * out).toFixed(3);
+          it.el.style.transform = `scale(${(1 + .05 * p).toFixed(4)})`;
+          it.el.style.filter = `drop-shadow(0 0 ${(2.2 * p).toFixed(2)}cqw rgba(${LAV},${(.75 * p).toFixed(3)}))`;
+        }
+      });
+      let leg = -1; for (let i = 0; i < 3; i++) if (t >= legStart(i) && t <= legEnd(i)) leg = i;
+      if (leg >= 0) { const e = ease(cl((t - legStart(leg)) / .6));
+        dot.style.left = (V('--x0') + (V('--x1') - V('--x0')) * e) + '%';
+        dot.style.top = (V('--y' + (leg + 1)) + (V('--p' + (leg + 1)) - V('--y' + (leg + 1))) * e) + '%';
+        dot.style.opacity = 1; } else dot.style.opacity = 0;
+      const ka = cl((t - 3.1) / .35);
+      ok.style.opacity = (ka * out).toFixed(3); ok.style.transform = `translateY(${((1 - ka) * 1.5).toFixed(3)}cqw)`;
+    }
+    window.__st3 = render;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(3.6); return; }
+    let t = 0, last = null, on = false;
+    new IntersectionObserver(es => es.forEach(e => { on = e.isIntersecting; last = null; }), { threshold: .35 }).observe(st);
+    render(0);
+    (function loop(now) { if (on && !window.__st3hold) { if (last !== null) t = (t + (now - last) / 1000) % L; last = now; render(t); } requestAnimationFrame(loop); })(performance.now());
+  })();
+
+  // ===== Escena 8: reloj propio. Columna por columna: pilas de piezas, punto y tramo de la curva =====
+  (() => {
+    const st = document.querySelector('.st8'); if (!st) return;
+    const L = 10, cl = v => Math.max(0, Math.min(1, v));
+    const ease = v => 1 - Math.pow(1 - v, 3);
+    const pop = d => { const a = cl(d / .28); return { o: a, s: d < 0 ? .6 : d < .28 ? .6 + .5 * ease(a) : d < .45 ? 1.1 - .1 * cl((d - .28) / .17) : 1 }; };
+    const at = i => 0.8 + i * 1.0;
+    const dots = [...st.querySelectorAll('.d8')];
+    const xls = [...st.querySelectorAll('.x8')], vls = [...st.querySelectorAll('.v8')], segs = [...st.querySelectorAll('.sg')];
+    const area = st.querySelector('.ar'), pill = st.querySelector('.s8'), conn = st.querySelector('.c8');
+    const CX = [11, 30.5, 50, 69.5, 89];
+    function render(t) {
+      const out = t < 9.2 ? 1 : cl(1 - (t - 9.2) / .5);
+      xls.forEach((e, i) => { const a = cl((t - at(i) + .35) / .35); e.style.opacity = (a * out).toFixed(3); e.style.transform = `translateY(${((1 - ease(a)) * 1.5).toFixed(2)}cqw)`; });
+      dots.forEach((e, i) => { const p = pop(t - at(i)); e.style.opacity = (p.o * out).toFixed(3); e.style.transform = `scale(${p.s.toFixed(3)})`; });
+      vls.forEach((e, i) => { const p = pop(t - at(i + 1) - .12); e.style.opacity = (p.o * out).toFixed(3); e.style.transform = `translateX(-50%) scale(${p.s.toFixed(3)})`; });
+            let x = CX[0]; for (let i = 0; i < 4; i++) { const a = ease(cl((t - at(i)) / 1.0)); if (a > 0) x = CX[i] + (CX[i + 1] - CX[i]) * a; }
+      const ins = `inset(-20% ${((89 - x) / 78 * 100).toFixed(2)}% -20% -20%)`; area.style.clipPath = ins; segs.forEach(e => { e.style.clipPath = ins; e.style.opacity = t < at(0) ? 0 : out; }); area.style.opacity = (t < at(0) ? 0 : .45 * out).toFixed(3);
+      const pp = pop(t - (at(4) + .45)); pill.style.opacity = (pp.o * out).toFixed(3); pill.style.transform = `scale(${pp.s.toFixed(3)})`;
+      const ca = ease(cl((t - (at(4) + .3)) / .4)); conn.style.opacity = (ca > 0 ? out : 0); conn.style.transform = `scaleY(${ca.toFixed(3)})`; conn.style.transformOrigin = 'bottom';
+    }
+    window.__st8 = render;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(8); return; }
+    let t = 0, last = null, on = false;
+    new IntersectionObserver(es => es.forEach(e => { on = e.isIntersecting; last = null; }), { threshold: .35 }).observe(st);
+    render(0);
+    (function loop(now) { if (on && !window.__st8hold) { if (last !== null) t = (t + (now - last) / 1000) % L; last = now; render(t); } requestAnimationFrame(loop); })(performance.now());
+  })();
 </script>
 </body>
 </html>
