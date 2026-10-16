@@ -66,7 +66,8 @@ nav img { height: 22px; width: auto; display: block; }
   margin: 20px 0 22px; max-width: 12ch;
 }
 .hero .lead { font-size: clamp(18px, 2.2vw, 22px); line-height: 1.5; color: var(--ink-2); max-width: 34ch; }
-.index { list-style: none; margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; counter-reset: q; }
+.index { list-style: none; margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 12px; counter-reset: q; }
+.index a { height: 100%; }
 .index a {
   display: flex; gap: 16px; align-items: baseline; text-decoration: none;
   background: var(--snow); border: 1px solid var(--warm-gray); border-radius: 14px;
@@ -395,10 +396,25 @@ footer { padding: 56px 24px 64px; text-align: center; }
 footer img { height: 20px; display: block; margin: 0 auto 10px; }
 footer span { font-size: 13px; color: var(--ink-2); }
 
+
+/* Botón flotante "volver arriba": aparece al pasar el hero */
+.to-top {
+  position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 60; width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center; background: var(--off-black); color: var(--off-white);
+  box-shadow: 0 6px 20px rgba(26,26,26,.18);
+  opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .25s, transform .25s;
+}
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: #000; }
+.to-top:focus-visible { outline: 3px solid var(--lavanda); outline-offset: 3px; }
+.to-top svg { width: 20px; height: 20px; }
+@media (min-width: 861px) { .to-top { right: 28px; bottom: 28px; width: 52px; height: 52px; } }
+
 /* ---------- Mobile ---------- */
 @media (max-width: 860px) {
   .hero { padding: 48px 0 64px; }
-  .index { grid-template-columns: 1fr; margin-top: 40px; }
+  .index { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; margin-top: 40px; }
   .obj { padding: 72px 0; }
   .obj .wrap, .obj:nth-of-type(even) .wrap { grid-template-columns: 1fr; grid-template-areas: "head" "stage" "body"; }
   .stage-wrap { margin-top: 28px; }
@@ -724,10 +740,21 @@ if (window.PRISMO_PIXEL_ID) {
   <span>by Contentalia</span>
 </footer>
 
+<button class="to-top" type="button" aria-label="Volver arriba" title="Volver arriba">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
 <script>
   // UTM capture (igual que la home): viaja con el evento de WhatsApp
   window._utmParams = {};
   new URLSearchParams(location.search).forEach((v, k) => { if (k.startsWith('utm_')) window._utmParams[k] = v; });
+  // Volver arriba
+  const toTop = document.querySelector('.to-top'), heroEl = document.querySelector('.hero');
+  const toggleTop = () => toTop.classList.toggle('show', scrollY > heroEl.offsetHeight * .8);
+  addEventListener('scroll', toggleTop, { passive: true }); toggleTop();
+  toTop.addEventListener('click', () => {
+    scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    document.querySelector('nav a').focus({ preventScroll: true });
+  });
   // Cada escena corre solo mientras se ve en pantalla
   const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('inview', e.isIntersecting)), { threshold: 0.35 });
   document.querySelectorAll('.stage').forEach(s => io.observe(s));
