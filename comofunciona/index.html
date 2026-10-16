@@ -389,7 +389,7 @@ svg.l8 { left: 0; top: 0; width: 100%; height: 100%; overflow: visible; }
 /* ---------- CTA + footer ---------- */
 .cta { margin: 0 16px; border-radius: 28px; padding: 88px 24px; text-align: center; background: linear-gradient(150deg, #E4A0B4 0%, #E8C4A0 18%, #D4D8A0 34%, #A0D4B8 50%, #A0BCD8 66%, #A8A0D8 82%, #CCA0D4 100%); }
 .cta h2 { font-size: clamp(34px, 5.4vw, 60px); font-weight: 800; line-height: 1.05; letter-spacing: -.02em; max-width: 16ch; margin: 0 auto; }
-.cta h2 { margin-bottom: 34px; }
+.cta h2 { margin-bottom: 34px; max-width: 20ch; }
 .cta p { font-size: 19px; line-height: 1.55; margin: 20px auto 34px; max-width: 34ch; font-weight: 500; }
 footer { padding: 56px 24px 64px; text-align: center; }
 footer img { height: 20px; display: block; margin: 0 auto 10px; }
@@ -409,6 +409,8 @@ footer span { font-size: 13px; color: var(--ink-2); }
   .cta { padding: 64px 22px; border-radius: 22px; }
   .cta p { font-size: 17px; }
 }
+nav .btn { white-space: nowrap; }
+@media (max-width: 360px) { nav img { height: 18px; } nav .btn { font-size: 13px; padding: 10px 12px; } }
 @media (max-width: 400px) { nav { padding: 14px 16px; } .wrap { padding: 0 16px; } .btn { padding: 11px 14px; font-size: 14px; } }
 
 /* Sin movimiento: cada escena queda congelada en su cuadro completo */
@@ -416,8 +418,18 @@ footer span { font-size: 13px; color: var(--ink-2); }
   .stage * { animation-play-state: paused !important; animation-delay: calc(var(--T) * -0.8) !important; }
 }
 </style>
+<!-- Meta Pixel de PRISMO (ID 29504471539177545, cuenta publicitaria 1220181806995037).
+     NO usar el píxel de Jorge (1024783283369286). Eventos: PageView al cargar + Contact al hacer clic en WhatsApp. -->
+<script>
+window.PRISMO_PIXEL_ID = '29504471539177545';
+if (window.PRISMO_PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', window.PRISMO_PIXEL_ID); fbq('track', 'PageView');
+}
+</script>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=29504471539177545&amp;ev=PageView&amp;noscript=1"></noscript>
 
 <!-- Productos de muestra (SVG) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -431,7 +443,7 @@ footer span { font-size: 13px; color: var(--ink-2); }
 <div class="nav-wrap">
   <nav>
     <a href="/" aria-label="Prismo, inicio"><img src="/logo-prismo-light.svg" alt="Prismo"></a>
-    <a href="/#demo" class="btn">Pedí una demo</a>
+    <a href="https://wa.me/5491159888633?text=Hola%20Laura%2C%20vi%20la%20p%C3%A1gina%20de%20Prismo%20y%20quiero%20coordinar%20una%20reuni%C3%B3n.%20Soy%20%5Bnombre%5D%20de%20%5Bempresa%5D." target="_blank" rel="noopener" class="btn" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'WhatsApp · comofunciona nav',utm_source:(window._utmParams||{}).utm_source||'',utm_campaign:(window._utmParams||{}).utm_campaign||''}); window.fbq && fbq('track','Contact',{content_name:'WhatsApp · comofunciona nav'});">Hablemos por WhatsApp</a>
   </nav>
   <div class="progress"><i></i></div>
 </div>
@@ -703,8 +715,8 @@ footer span { font-size: 13px; color: var(--ink-2); }
 </main>
 
 <section class="cta" id="contacto">
-  <h2>¿Charlamos?</h2>
-  <a href="/#demo" class="btn btn-solid">Pedí una demo</a>
+  <h2>¿Le sirve a tu empresa?<br>Lo sabemos en 20&nbsp;minutos.</h2>
+  <a href="https://wa.me/5491159888633?text=Hola%20Laura%2C%20vi%20la%20p%C3%A1gina%20de%20Prismo%20y%20quiero%20coordinar%20una%20reuni%C3%B3n.%20Soy%20%5Bnombre%5D%20de%20%5Bempresa%5D." target="_blank" rel="noopener" class="btn btn-solid" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'WhatsApp · comofunciona',utm_source:(window._utmParams||{}).utm_source||'',utm_campaign:(window._utmParams||{}).utm_campaign||''}); window.fbq && fbq('track','Contact',{content_name:'WhatsApp · comofunciona'});">Hablemos por WhatsApp</a>
 </section>
 
 <footer>
@@ -713,6 +725,9 @@ footer span { font-size: 13px; color: var(--ink-2); }
 </footer>
 
 <script>
+  // UTM capture (igual que la home): viaja con el evento de WhatsApp
+  window._utmParams = {};
+  new URLSearchParams(location.search).forEach((v, k) => { if (k.startsWith('utm_')) window._utmParams[k] = v; });
   // Cada escena corre solo mientras se ve en pantalla
   const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('inview', e.isIntersecting)), { threshold: 0.35 });
   document.querySelectorAll('.stage').forEach(s => io.observe(s));

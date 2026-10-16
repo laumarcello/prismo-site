@@ -1258,8 +1258,18 @@
   .grecaptcha-badge { visibility: hidden; }
 
 </style>
+<!-- Meta Pixel de PRISMO (ID 29504471539177545, cuenta publicitaria 1220181806995037).
+     NO usar el píxel de Jorge (1024783283369286). Eventos: PageView al cargar + Contact al hacer clic en WhatsApp. -->
+<script>
+window.PRISMO_PIXEL_ID = '29504471539177545';
+if (window.PRISMO_PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', window.PRISMO_PIXEL_ID); fbq('track', 'PageView');
+}
+</script>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=29504471539177545&amp;ev=PageView&amp;noscript=1"></noscript>
 
 <!-- Nav -->
 <div class="nav-wrapper">
@@ -1706,7 +1716,7 @@
     <p>Mandanos 5 productos con sus datos y fotos. Te mostramos cómo se ven resueltos con Prismo. Sin compromiso.</p>
     <div class="demo-buttons">
       <a href="demo.html" class="demo-btn-primary" onclick="gtag('event','click_demo',{event_category:'CTA',event_label:'Demo Gratuita'});">Pedí una Demo Gratuita</a>
-      <a href="https://wa.me/5491169765500" class="demo-btn-secondary" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'WhatsApp',utm_source:(_utmParams||{}).utm_source||'',utm_campaign:(_utmParams||{}).utm_campaign||''});">Consultanos por WhatsApp</a>
+      <a href="https://wa.me/5491159888633" class="demo-btn-secondary" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'WhatsApp',utm_source:(_utmParams||{}).utm_source||'',utm_campaign:(_utmParams||{}).utm_campaign||''}); window.fbq && fbq('track','Contact',{content_name:'WhatsApp · home'});">Consultanos por WhatsApp</a>
     </div>
   </section>
 </div>
